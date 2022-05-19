@@ -1,0 +1,26 @@
+.btn {
+  border: none;
+  text-transform: capitalize;
+  padding: 1rem 2rem;
+  font-family: inherit;
+  background-color: transparent;
+  border-radius: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: $color-primary;
+  color: $color-white;
+  font-weight: 600;
+}
+
+.btn-light {
+  background-color: $color-primary-light;
+  color: $color-primary;
+}
+
+.btn-secondary {
+  border: 1px solid $color-primary;
+  color: $color-primary;
+}
