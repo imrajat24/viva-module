@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 const Trainer1 = () => {
   // dummy states for the app
-
   // 1. random set numbers
   const [setNumbers, setSetNumbers] = useState([
     { set: "Set A", key: 1 },
@@ -35,7 +34,10 @@ const Trainer1 = () => {
   const [isOpen, setIsOpen] = useState({ empCode: false, setNum: false });
 
   // 4. select the first element of the dropdown
-  const [firstItem, setFirstItem] = useState(["Select Set Number"]);
+  const [firstItem, setFirstItem] = useState([
+    "Select Employee Code",
+    "Select Set Number",
+  ]);
 
   // function to retrieve the present date in the app
   const getDate = () => {
@@ -97,19 +99,24 @@ const Trainer1 = () => {
                       let parent = e.target.parentNode;
                       let child = e.target;
                       parent.prepend(child);
-                      setIsOpen({
-                        empCode: isOpen.empCode,
-                        setNum: !isOpen.setNum,
+                      // setIsOpen({
+                      //   empCode: isOpen.empCode,
+                      //   setNum: !isOpen.setNum,
+                      // });
+                      setIsOpen((prevState) => {
+                        return {
+                          ...prevState,
+                          setNum: !isOpen.setNum,
+                        };
                       });
-                      // setIsOpen({...isOpen,!isOpen.setNum});
-                      setFirstItem([child.innerHTML]);
+                      setFirstItem(["Select Employee Code", child.innerHTML]);
                     }}
                   >
                     {set.set}
                   </li>
                 ))
               ) : (
-                <li>{firstItem[0]}</li>
+                <li>{firstItem[1]}</li>
               )}
             </ul>
             <p>or</p>
