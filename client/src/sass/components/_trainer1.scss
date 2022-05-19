@@ -33,7 +33,7 @@
       width: 25%;
       border: none;
       padding: 1rem 2rem;
-      background-color: #fbfbfb;
+      background-color: $color-secondary;
       border-radius: 0.9rem;
       font-family: inherit;
       font-size: 1.3rem;
@@ -50,25 +50,43 @@
       display: flex;
       align-items: center;
       margin-top: 2rem;
+      position: relative;
+      &_misc {
+        width: 25%;
+      }
       &-child {
         border-radius: 0.9rem;
-        background-color: #fbfbfb;
+        background-color: $color-secondary;
         width: 25%;
-        padding: 1rem 2rem;
         font-size: 1.3rem;
         color: #92908f;
-        position: relative;
-        .icn-down {
+        position: absolute;
+        top: 1%;
+        list-style: none;
+        .icn-down,
+        .icn-up {
           position: absolute;
           font-size: 1.6rem;
-          right: 2rem;
+          right: 1rem;
+          cursor: pointer;
+          padding: 1rem 2rem;
+        }
+        .icn-down {
           top: 50%;
           transform: translateY(-50%);
         }
-        .dropdown-list {
-          background-color: black;
-          position: absolute;
-          top: 0;
+        .icn-up {
+          top: 0.5rem;
+          transform: translateY(-0.5rem);
+        }
+
+        li {
+          padding: 0.5rem 2rem;
+          &:first-of-type,
+          &:last-of-type {
+            padding: 1rem 2rem;
+          }
+          cursor: pointer;
         }
       }
       p {
@@ -82,7 +100,7 @@
     &-btns {
       display: flex;
       justify-content: space-between;
-      margin-top: 2rem;
+      margin-top: 3rem;
     }
   }
 }

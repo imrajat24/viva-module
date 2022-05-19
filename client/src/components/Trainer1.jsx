@@ -4,7 +4,7 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 const Trainer1 = () => {
   // dummy states for the app
 
-  // random set numbers
+  // 1. random set numbers
   const [setNumbers, setSetNumbers] = useState([
     { set: "Set A", key: 1 },
     { set: "Set B", key: 2 },
@@ -12,7 +12,7 @@ const Trainer1 = () => {
     { set: "Set D", key: 4 },
   ]);
 
-  // random emplyee codes
+  // 2. random employee codes
   const [empCode, setEmpCode] = useState([
     {
       empCode: 12345,
@@ -31,8 +31,11 @@ const Trainer1 = () => {
     },
   ]);
 
-  // to check if both the dropdown (empcode and setnumbers) are clicked or not
+  // 3. to check if both the dropdown (empcode and setnumbers) are clicked or not
   const [isOpen, setIsOpen] = useState({ empCode: false, setNum: false });
+
+  // 4. select the first element of the dropdown
+  const [firstItem, setFirstItem] = useState(["Select Set Number"]);
 
   // function to retrieve the present date in the app
   const getDate = () => {
@@ -41,7 +44,6 @@ const Trainer1 = () => {
     let year = dateObj.getFullYear();
     let day = String(dateObj.getDate()).padStart(2, "0");
     let output = day + "/" + month + "/" + year;
-    console.table(isOpen);
     return output;
   };
   let date = getDate();
@@ -78,20 +80,37 @@ const Trainer1 = () => {
             placeholder="Email"
           />
           <div className="trainer1_form-dropdownContainer">
-            <ul
-              className="trainer1_form-dropdownContainer-child"
-              onClick={() =>
-                setIsOpen({ empCode: isOpen.empCode, setNum: !isOpen.setNum })
-              }
-            >
-              Select Set Number
+            <div className="trainer1_form-dropdownContainer_misc"></div>
+            <ul className="trainer1_form-dropdownContainer-child">
               <FontAwesomeIcon
                 icon={isOpen.setNum ? faAngleUp : faAngleDown}
-                className="icn-down"
+                className={isOpen.setNum ? "icn-up" : "icn-down"}
+                onClick={() =>
+                  setIsOpen({ empCode: isOpen.empCode, setNum: !isOpen.setNum })
+                }
               ></FontAwesomeIcon>
-              {isOpen.setNum
-                ? setNumbers.map((set) => <li key={set.key}>{set.set}</li>)
-                : null}
+              {isOpen.setNum ? (
+                setNumbers.map((set) => (
+                  <li
+                    key={set.key}
+                    onClick={(e) => {
+                      let parent = e.target.parentNode;
+                      let child = e.target;
+                      parent.prepend(child);
+                      setIsOpen({
+                        empCode: isOpen.empCode,
+                        setNum: !isOpen.setNum,
+                      });
+                      // setIsOpen({...isOpen,!isOpen.setNum});
+                      setFirstItem([child.innerHTML]);
+                    }}
+                  >
+                    {set.set}
+                  </li>
+                ))
+              ) : (
+                <li>{firstItem[0]}</li>
+              )}
             </ul>
             <p>or</p>
             <button className="btn btn-light">Create A set</button>
