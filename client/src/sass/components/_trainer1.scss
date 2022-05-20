@@ -1,10 +1,35 @@
 .trainer1 {
-  height: 68vh;
+  // height: 68vh;
   width: 114rem;
   padding: 4rem;
   background-color: #fefefe;
   position: absolute;
   top: 28%;
+  @include respond(tab-land) {
+    //width < 1200px ?
+    max-width: 100rem;
+    top: 25%;
+  }
+
+  @include respond(tab-pot) {
+    //width < 992px ?
+    max-width: 90rem;
+    top: 20%;
+  }
+  @include respond(phone-med) {
+    //width < 768px ?
+    max-width: 70rem;
+  }
+
+  @include respond(phone) {
+    //width < 600px ?
+    max-width: 100%;
+    padding: 4rem;
+    top: 15%;
+  }
+  @include respond(small-phone) {
+    top: 13%;
+  }
   left: 50%;
   transform: translateX(-50%);
   border-radius: 1rem;
@@ -15,7 +40,6 @@
       justify-content: space-between;
       p {
         font-size: 2rem;
-        // font-weight: 500;
       }
     }
     &--2 {
@@ -31,6 +55,12 @@
     flex-direction: column;
     input {
       width: 25%;
+      @include respond(phone-med) {
+        width: 40%;
+      }
+      @include respond(small-phone) {
+        width: 65%;
+      }
       border: none;
       padding: 1rem 2rem;
       background-color: $color-secondary;
@@ -53,6 +83,11 @@
     &-dropdownContainer {
       display: flex;
       align-items: center;
+      @include respond(phone) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
       margin-top: 2rem;
       position: relative;
       &_misc {
@@ -62,6 +97,12 @@
         border-radius: 0.9rem;
         background-color: $color-secondary;
         width: 25%;
+        @include respond(phone-med) {
+          width: 40%;
+        }
+        @include respond(small-phone) {
+          width: 65%;
+        }
         font-size: 1.3rem;
         color: #92908f;
         position: absolute;
@@ -96,6 +137,12 @@
       p {
         font-size: 1.6rem;
         margin: 0 5rem;
+        @include respond(phone-med) {
+          margin: 0 12rem;
+        }
+        @include respond(phone) {
+          margin: 6rem 0 2rem 0;
+        }
         text-transform: uppercase;
         color: #292524;
         opacity: 50%;

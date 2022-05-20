@@ -58,7 +58,7 @@ const Trainer1 = () => {
 
   return (
     <>
-      <div className="trainer1">
+      <div className="trainer1 row">
         <div className="trainer1_header">
           <div className="trainer1_header--1">
             <p>Hello Trainer,</p>

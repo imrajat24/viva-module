@@ -4,10 +4,22 @@
   &Nav {
     display: flex;
     padding-top: 5rem;
+    @include respond(phone) {
+      padding-top: 4rem;
+    }
     justify-content: space-between;
     align-items: center;
     &_logo {
       width: 10%;
+      @include respond(phone-med) {
+        width: 15%;
+      }
+      @include respond(phone) {
+        width: 16%;
+      }
+      @include respond(small-phone) {
+        width: 20%;
+      }
       img {
         width: 60%;
       }
@@ -23,6 +35,22 @@
       h3 {
         font-size: 2.4rem;
         font-weight: 400;
+      }
+      @include respond(phone-med) {
+        h1 {
+          font-size: 3.8rem;
+        }
+        h3 {
+          font-size: 2rem;
+        }
+      }
+      @include respond(small-phone) {
+        h1 {
+          font-size: 2.6rem;
+        }
+        h3 {
+          font-size: 1.6rem;
+        }
       }
     }
     &_misc {

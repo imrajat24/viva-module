@@ -11,7 +11,7 @@ html {
   font-size: 62.5%; //1rem = 10px; 10px/16px% = 62.5
 
   @include respond(big-desk) {
-    //width < 1200px ?
+    //width < 1800px ?
     font-size: 75%; // 1rem = 12px; 9/16% = 75%
   }
 
@@ -21,7 +21,7 @@ html {
   }
 
   @include respond(tab-pot) {
-    //width < 900px ?
+    //width < 992px ?
     font-size: 50%; // 1rem = 8px; 8/16% = 50%
   }
 
@@ -39,9 +39,13 @@ html {
     //width < 1200px ?
     max-width: 100rem;
   }
+  @include respond(tab-pot) {
+    // width < 992px
+    max-width: 90rem;
+  }
 
   @include respond(phone-med) {
-    //width < 1200px ?
+    //width < 768px ?
     max-width: 70rem;
   }
 
