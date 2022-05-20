@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 const Trainer1 = () => {
+  // global variables for name and email
+  const input_name = useRef();
+  const input_email = useRef();
   // dummy states for the app
   // 1. random set numbers
   const [setNumbers, setSetNumbers] = useState([
@@ -17,16 +20,19 @@ const Trainer1 = () => {
       empCode: 12345,
       name: "rajat",
       email: "rajat@spicejet.com",
+      key: 1,
     },
     {
       empCode: 24312,
       name: "kamlesh",
       email: "kamlesh@spicejet.com",
+      key: 2,
     },
     {
       empCode: 54372,
       name: "binod",
       email: "binod@spicejet.com",
+      key: 3,
     },
   ]);
 
@@ -66,20 +72,61 @@ const Trainer1 = () => {
           </div>
         </div>
         <form className="trainer1_form">
-          <input
-            type="text"
-            className="trainer1_form-empCode"
-            placeholder="Employee Code"
-          />
+          <div className="trainer1_form-dropdownContainer">
+            <ul className="trainer1_form-dropdownContainer-child">
+              <FontAwesomeIcon
+                icon={isOpen.empCode ? faAngleUp : faAngleDown}
+                className={isOpen.empCode ? "icn-up" : "icn-down"}
+                onClick={() => {
+                  setIsOpen((prevState) => {
+                    return {
+                      ...prevState,
+                      empCode: !isOpen.empCode,
+                    };
+                  });
+                }}
+              ></FontAwesomeIcon>
+              {isOpen.empCode ? (
+                empCode.map((emp) => (
+                  <li
+                    key={emp.key}
+                    onClick={(e) => {
+                      let parent = e.target.parentNode;
+                      let child = e.target;
+                      parent.prepend(child);
+                      // logic to set the name and email to the selected employee id
+                      input_name.current.value = emp.name;
+                      input_email.current.value = emp.email;
+                      setIsOpen((prevState) => {
+                        return {
+                          ...prevState,
+                          empCode: !isOpen.empCode,
+                        };
+                      });
+                      setFirstItem([child.innerHTML, firstItem[1]]);
+                    }}
+                  >
+                    {emp.empCode}
+                  </li>
+                ))
+              ) : (
+                <li>{firstItem[0]}</li>
+              )}
+            </ul>
+          </div>
           <input
             type="text"
             className="trainer1_form-name"
             placeholder="Name"
+            ref={input_name}
+            disabled
           />
           <input
             type="email"
             className="trainer1_form-email"
             placeholder="Email"
+            ref={input_email}
+            disabled
           />
           <div className="trainer1_form-dropdownContainer">
             <div className="trainer1_form-dropdownContainer_misc"></div>
@@ -87,9 +134,14 @@ const Trainer1 = () => {
               <FontAwesomeIcon
                 icon={isOpen.setNum ? faAngleUp : faAngleDown}
                 className={isOpen.setNum ? "icn-up" : "icn-down"}
-                onClick={() =>
-                  setIsOpen({ empCode: isOpen.empCode, setNum: !isOpen.setNum })
-                }
+                onClick={() => {
+                  setIsOpen((prevState) => {
+                    return {
+                      ...prevState,
+                      setNum: !isOpen.setNum,
+                    };
+                  });
+                }}
               ></FontAwesomeIcon>
               {isOpen.setNum ? (
                 setNumbers.map((set) => (
@@ -109,7 +161,10 @@ const Trainer1 = () => {
                           setNum: !isOpen.setNum,
                         };
                       });
-                      setFirstItem(["Select Employee Code", child.innerHTML]);
+                      setFirstItem((prevState) => [
+                        firstItem[0],
+                        child.innerHTML,
+                      ]);
                     }}
                   >
                     {set.set}

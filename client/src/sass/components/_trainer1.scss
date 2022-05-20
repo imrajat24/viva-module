@@ -37,12 +37,16 @@
       border-radius: 0.9rem;
       font-family: inherit;
       font-size: 1.3rem;
-
+      color: #92908f;
       &::placeholder {
         color: #92908f;
       }
+
       &:focus {
         outline: none;
+      }
+      &:first-of-type {
+        margin-top: 6rem;
       }
       margin-top: 2rem;
     }
