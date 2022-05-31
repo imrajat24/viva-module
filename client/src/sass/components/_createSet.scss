@@ -1,0 +1,100 @@
+.copyset-contain {
+  text-align: center;
+
+  &_card {
+    max-width: 90%;
+    margin: 0 auto;
+    .copy-card {
+      max-width: 30%;
+      background-color: $color-card-bg;
+      padding: 3rem 5rem;
+      margin: 0 2rem;
+      border-radius: 1rem;
+      h4 {
+        font-size: 2rem;
+        text-transform: uppercase;
+        margin-bottom: 3rem;
+      }
+    }
+
+    // scss to style the arrows and dots of the horizontal scroll
+    .glider-contain {
+      .draggable {
+        // overflow-x: hidden;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .glider-dots {
+        margin-top: 2rem;
+      }
+    }
+  }
+}
+
+.createSetheading {
+  text-align: center;
+  h2 {
+    text-transform: uppercase;
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+  }
+}
+
+.divider {
+  margin: 6rem 0;
+}
+
+.createSet_contain {
+  text-align: center;
+  // trainer1 is in trainer1.scss file
+  // trainer1 and trainer2 are the two parent components for various pages of the trainer
+  .trainer2 {
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+      rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+    padding: 6rem 4rem;
+    border-radius: 1.6rem;
+  }
+
+  &--set {
+    display: flex;
+    flex-direction: column;
+
+    .createSet-inputs,
+    .createSet_closing-btns {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      input {
+        padding: 1rem 0;
+        text-align: center;
+        border: none;
+        background-color: $color-primary-light;
+        border-radius: 0.9rem;
+        font-family: inherit;
+        color: $color-primary;
+        &:focus {
+          outline: none;
+        }
+        &::placeholder {
+          color: $color-primary;
+        }
+      }
+      @include respond(tab-pot) {
+        flex-direction: column;
+        input {
+          margin-bottom: 1.5rem;
+        }
+        button {
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+
+    .createSet_closing-btns {
+      margin-bottom: 0;
+    }
+  }
+}

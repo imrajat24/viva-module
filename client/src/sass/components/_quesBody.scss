@@ -1,0 +1,38 @@
+.ques_body {
+  background-color: $color-card-bg;
+  padding: 3rem 3.5rem;
+  border-radius: 1.6rem;
+  margin-bottom: 4rem;
+
+  &-ques,
+  &-answers {
+    display: flex;
+    justify-content: space-between;
+  }
+  &-ques {
+    margin-bottom: 3rem;
+    .ques,
+    .marks {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+  }
+  &-answers {
+    margin-bottom: 1rem;
+    .ans,
+    .marks {
+      font-size: 1.6rem;
+    }
+  }
+  &-btns {
+    button {
+      margin-right: 2rem;
+      @include respond(tab-pot) {
+        width: 100%;
+        &:first-of-type {
+          margin: 2rem 0 1rem 0;
+        }
+      }
+    }
+  }
+}

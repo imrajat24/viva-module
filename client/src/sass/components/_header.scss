@@ -4,22 +4,11 @@
   &Nav {
     display: flex;
     padding-top: 5rem;
-    @include respond(phone) {
-      padding-top: 4rem;
-    }
     justify-content: space-between;
     align-items: center;
+
     &_logo {
       width: 10%;
-      @include respond(phone-med) {
-        width: 15%;
-      }
-      @include respond(phone) {
-        width: 16%;
-      }
-      @include respond(small-phone) {
-        width: 20%;
-      }
       img {
         width: 60%;
       }
@@ -36,15 +25,38 @@
         font-size: 2.4rem;
         font-weight: 400;
       }
-      @include respond(phone-med) {
+    }
+    &_misc {
+      width: 10%;
+    }
+
+    @include respond(phone-med) {
+      padding-top: 4rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      &_logo {
+        width: 15%;
+      }
+      &_heading {
         h1 {
-          font-size: 3.8rem;
+          font-size: 3.4rem;
         }
         h3 {
           font-size: 2rem;
         }
       }
-      @include respond(small-phone) {
+    }
+    @include respond(phone) {
+      &_logo {
+        width: 16%;
+      }
+      &_heading {
+        margin: 0.5rem 0;
+      }
+    }
+    @include respond(small-phone) {
+      &_heading {
         h1 {
           font-size: 2.6rem;
         }
@@ -52,9 +64,6 @@
           font-size: 1.6rem;
         }
       }
-    }
-    &_misc {
-      width: 10%;
     }
   }
 }

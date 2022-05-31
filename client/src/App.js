@@ -1,8 +1,8 @@
-import TrainerPage1 from "./pages/TrainerPage1";
+import TrainerPage from "./pages/TrainerPage";
 function App() {
   return (
     <div className="App">
-      <TrainerPage1 />
+      <TrainerPage />
     </div>
   );
 }

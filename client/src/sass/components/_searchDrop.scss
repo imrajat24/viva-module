@@ -1,0 +1,52 @@
+.select-search {
+  //   position: absolute;
+
+  &__value {
+    input {
+      width: 25%;
+      @include respond(phone-med) {
+        width: 100%;
+      }
+      // @include respond(small-phone) {
+      //   width: 65%;
+      // }
+    }
+  }
+  .select-search__options {
+    list-style: none;
+    height: 10rem;
+    width: 25%;
+    overflow-y: scroll;
+
+    // code to customize the scroll bar
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    &::-webkit-scrollbar-track {
+      background: $color-secondary;
+      border-radius: 1rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #92908f;
+      border-radius: 1rem;
+    }
+  }
+
+  .select-search__option,
+  .select-search__not-found {
+    padding: 0.5rem 0 0 2rem;
+    background: white;
+    border: none;
+    outline: none;
+    font-size: 1.3rem;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .select-search__not-found {
+    color: $color-primary;
+  }
+}
+
+.downloadReport-search {
+}

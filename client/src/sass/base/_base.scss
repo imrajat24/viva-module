@@ -20,15 +20,15 @@ html {
     font-size: 56.25%; // 1rem = 9px; 9/16% = 56.25%
   }
 
-  @include respond(tab-pot) {
-    //width < 992px ?
-    font-size: 50%; // 1rem = 8px; 8/16% = 50%
-  }
+  // @include respond(tab-pot) {
+  //   //width < 992px ?
+  //   font-size: 50%; // 1rem = 8px; 8/16% = 50%
+  // }
 
-  @include respond(phone) {
-    //width < 900px ?
-    font-size: 43.75%; // 1rem = 7px; 7/16% = 43.75%
-  }
+  // @include respond(phone) {
+  //   //width < 900px ?
+  //   font-size: 43.75%; // 1rem = 7px; 7/16% = 43.75%
+  // }
 }
 
 .row {

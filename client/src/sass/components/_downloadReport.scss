@@ -1,0 +1,60 @@
+.table-contain {
+  overflow-x: auto;
+  .searchContainer {
+    margin: 0 auto;
+    width: 30%;
+    position: relative;
+    @include respond(phone-med) {
+      width: 60%;
+    }
+    input {
+      width: 100%;
+      text-align: left !important;
+      padding-left: 2rem !important;
+
+      &::placeholder {
+        text-align: left;
+      }
+    }
+    svg {
+      position: absolute;
+      right: 2rem;
+      color: $color-primary;
+      top: 50%;
+      @include respond(tab-pot) {
+        top: 37%;
+      }
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.table {
+  border-collapse: collapse;
+  tr {
+    text-align: center;
+    th {
+      font-size: 1.8rem;
+      color: $color-primary;
+      text-transform: uppercase;
+      padding: 3rem 1rem;
+      @include respond(phone-med) {
+        font-size: 1.6rem;
+      }
+    }
+    td {
+      font-size: 1.6rem;
+      padding-bottom: 3rem;
+      text-transform: capitalize;
+      &:nth-of-type(4) {
+        text-transform: uppercase;
+      }
+      &:nth-of-type(5) {
+        text-transform: uppercase;
+      }
+      @include respond(phone-med) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
