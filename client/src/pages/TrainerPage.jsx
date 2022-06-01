@@ -8,7 +8,7 @@ const TrainerPage = () => {
       <Header />
       {/* <Trainer1 /> */}
       {/* <CreateSet /> */}
-      <DownloadReports />
+      {/* <DownloadReports /> */}
     </div>
   );
 };
