@@ -1,5 +1,5 @@
-import Header from "../containers/Header";
-import DownloadReport from "../containers/DownloadReports";
+import Header from "../../containers/Header";
+import DownloadReport from "../../containers/DownloadReports";
 const DownloadReportPage = () => {
   return (
     <div>

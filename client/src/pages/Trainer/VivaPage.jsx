@@ -1,5 +1,5 @@
-import Header from "../containers/Header";
-import Viva from "../containers/Viva";
+import Header from "../../containers/Header";
+import Viva from "../../containers/Viva";
 const VivaPage = () => {
   return (
     <div>

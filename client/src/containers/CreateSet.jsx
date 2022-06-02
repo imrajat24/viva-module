@@ -28,6 +28,7 @@ const CreateSet = () => {
             <input type="text" className="" placeholder="Type of training" />
           </div>
           <QuesBody />
+
           <div className="createSet_closing-btns">
             <button className="btn btn-light">add a new question</button>
             <button className="btn btn-secondary">complete</button>

@@ -1,0 +1,29 @@
+.viva_summaryHeading {
+  justify-content: center;
+}
+
+.summary {
+  &_point {
+    display: flex;
+    justify-content: space-between;
+    @include respond(phone) {
+      flex-direction: column;
+      align-items: center;
+
+      span {
+        &:first-of-type {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+    text-transform: capitalize;
+    font-size: 1.6rem;
+    &:not(:last-of-type) {
+      margin-bottom: 2rem;
+    }
+
+    &-value {
+      color: $color-primary;
+    }
+  }
+}

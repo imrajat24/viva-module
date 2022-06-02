@@ -1,5 +1,5 @@
-import Header from "../containers/Header";
-import Trainer1 from "../containers/Trainer1";
+import Header from "../../containers/Header";
+import Trainer1 from "../../containers/Trainer1";
 const TrainerPage = () => {
   return (
     <div>

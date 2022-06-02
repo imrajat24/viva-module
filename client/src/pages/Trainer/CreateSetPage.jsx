@@ -1,5 +1,5 @@
-import Header from "../containers/Header";
-import CreateSet from "../containers/CreateSet";
+import Header from "../../containers/Header";
+import CreateSet from "../../containers/CreateSet";
 const CreateSetPage = () => {
   return (
     <div>

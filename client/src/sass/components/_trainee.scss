@@ -1,0 +1,34 @@
+.trainee1 {
+  min-height: 60vh;
+}
+
+.status_para {
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin-top: 2rem;
+}
+
+.trainee_viva-details {
+  margin-top: 2rem;
+  font-size: 1.6rem;
+
+  .trainee_viva-marks {
+    margin-bottom: 2rem;
+  }
+  .trainee_viva-status {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    img {
+      width: 2.5rem;
+    }
+    span {
+      margin-left: 1rem;
+      text-transform: capitalize;
+    }
+  }
+  .trainee_viva-btn {
+    margin-top: 1rem;
+  }
+}
