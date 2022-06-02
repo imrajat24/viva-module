@@ -1,0 +1,47 @@
+.viva_heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+  @include respond(phone) {
+    flex-direction: column;
+    align-items: center;
+    h3 {
+      margin-bottom: 1rem;
+    }
+  }
+  h3 {
+    font-size: 2.4rem;
+    text-transform: uppercase;
+  }
+}
+
+.viva_contain {
+  padding: 4rem !important;
+
+  .viva-quesBody {
+    padding: 2rem 2.5rem;
+    img {
+      &:first-of-type {
+        margin-right: 2rem;
+      }
+    }
+  }
+  .viva_btn {
+    text-align: center;
+  }
+}
+
+.ques_body-remarks {
+  padding: 0;
+  input {
+    padding: 2rem;
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 1.4rem;
+    &:focus {
+      outline: none;
+    }
+  }
+}

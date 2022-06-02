@@ -34,9 +34,10 @@ const CopySetScroll = () => {
             slidesToShow: "2",
           },
         },
+
         {
           // screens greater than >= 376px
-          breakpoint: 376,
+          breakpoint: 300,
           settings: {
             // Set to `auto` and provide item width to adjust to viewport
             slidesToShow: "1",

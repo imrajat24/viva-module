@@ -5,7 +5,7 @@
   margin-bottom: 4rem;
 
   &-ques,
-  &-answers {
+  &-answer {
     display: flex;
     justify-content: space-between;
   }
@@ -17,7 +17,7 @@
       font-weight: 500;
     }
   }
-  &-answers {
+  &-answer {
     margin-bottom: 1rem;
     .ans,
     .marks {

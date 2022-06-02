@@ -9,16 +9,18 @@ const QuesBody = () => {
       </div>
 
       <div className="ques_body-answers">
-        <p className="ans">Step 1</p>
-        <p className="marks">0</p>
-      </div>
-      <div className="ques_body-answers">
-        <p className="ans">Step 2</p>
-        <p className="marks">0</p>
-      </div>
-      <div className="ques_body-answers">
-        <p className="ans">Step 3</p>
-        <p className="marks">0</p>
+        <div className="ques_body-answer">
+          <p className="ans">Step 1</p>
+          <p className="marks">0</p>
+        </div>
+        <div className="ques_body-answer">
+          <p className="ans">Step 2</p>
+          <p className="marks">0</p>
+        </div>
+        <div className="ques_body-answer">
+          <p className="ans">Step 3</p>
+          <p className="marks">0</p>
+        </div>
       </div>
 
       <div className="ques_body-btns">

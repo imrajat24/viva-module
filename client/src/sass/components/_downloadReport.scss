@@ -24,13 +24,25 @@
       @include respond(tab-pot) {
         top: 37%;
       }
+      @include respond(small-phone) {
+        right: 1rem;
+      }
       transform: translateY(-50%);
     }
+  }
+}
+.table-contain {
+  padding: 4rem !important;
+  @include respond(phone) {
+    padding: 4rem 1rem !important;
   }
 }
 
 .table {
   border-collapse: collapse;
+  margin-bottom: 1rem !important;
+  border-radius: 0.5rem !important;
+
   tr {
     text-align: center;
     th {

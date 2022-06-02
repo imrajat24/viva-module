@@ -57,7 +57,7 @@ const DownloadReports = () => {
           <input type="text" placeholder="Search Emp Code" />
           <FontAwesomeIcon icon={faSearch} />
         </div>
-        <table className="ques_body table">
+        <table className="table ques_body">
           <thead>
             <tr>
               <th>Employee Code</th>

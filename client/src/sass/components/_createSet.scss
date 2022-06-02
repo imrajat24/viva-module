@@ -47,16 +47,17 @@
   margin: 6rem 0;
 }
 
+// trainer1 is in trainer1.scss file
+// trainer1 and trainer2 are the two parent components for various pages of the trainer
+.trainer2 {
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
+    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  padding: 6rem 4rem;
+  border-radius: 1.6rem;
+}
+
 .createSet_contain {
   text-align: center;
-  // trainer1 is in trainer1.scss file
-  // trainer1 and trainer2 are the two parent components for various pages of the trainer
-  .trainer2 {
-    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
-      rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
-    padding: 6rem 4rem;
-    border-radius: 1.6rem;
-  }
 
   &--set {
     display: flex;
