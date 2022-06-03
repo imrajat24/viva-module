@@ -1,11 +1,14 @@
 import logo from "../images/logoWhite.png";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <>
       <div className="header">
         <div className="headerNav row">
           <div className="headerNav_logo">
-            <img src={logo} alt="spicelearn-logo" />
+            <Link to="/">
+              <img src={logo} alt="spicelearn-logo" />
+            </Link>
           </div>
           <div className="headerNav_heading">
             <h1> Viva Voice Assesment</h1>

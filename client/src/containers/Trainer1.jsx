@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { SearchDropEmp, SearchDropSet } from "../components/SearchDrop";
 import getDate from "../Methods/getDate";
+import { Link } from "react-router-dom";
 const Trainer1 = () => {
   // global variables for name and email
   const input_name = useRef();
@@ -43,12 +44,18 @@ const Trainer1 = () => {
             <SearchDropSet />
             <div className="trainer1_form-dropdownContainer-child2">
               <p>or</p>
-              <button className="btn btn-light">Create A set</button>
+              <Link to="createSet">
+                <button className="btn btn-light">Create A set</button>
+              </Link>
             </div>
           </div>
           <div className="trainer1_form-btns">
-            <button className="btn btn-primary">Start Viva</button>
-            <button className="btn btn-secondary">Download Reports</button>
+            <Link to="/viva">
+              <button className="btn btn-primary">Start Viva</button>
+            </Link>
+            <Link to="/downloadReport">
+              <button className="btn btn-secondary">Download Reports</button>
+            </Link>
           </div>
         </form>
       </div>
