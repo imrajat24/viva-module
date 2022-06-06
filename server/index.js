@@ -5,17 +5,18 @@ const answerSheetRouter = require("./routes/AnswerSheet");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors")
 
 const DB_HOSTNAME = "localhost";
 const DB_NAME = "spicejet";
-mongoose.connect("mongodb://" + DB_HOSTNAME + "/" + DB_NAME);
-const db = mongoose.connection;
-db.on("error", (error) => console.log(error));
-db.once("open", () => console.log("Connected to database"));
+mongoose.connect("mongodb://" + DB_HOSTNAME + "/" + DB_NAME)
+    .then(() => { console.log("Connected to database"); })
+    .catch((error) => { console.log("Failed to connect to the database... " + error); });
 
 const app = express();
 app.use(helmet());
 app.use(morgan("tiny"));
+app.use(cors());
 app.use(express.json());
 app.use("/viva", vivaRouter);
 app.use("/questionpaper", questionPaperRouter);

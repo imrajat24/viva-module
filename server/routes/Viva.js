@@ -1,43 +1,76 @@
 const express = require("express");
-const viva = require("../models/Viva");
 const router = express.Router();
+const validate = require("../adapters/validators/routes/Viva");
+const database = require("../adapters/databases/Viva");
+const errors = require("../adapters/databases/utils/errors");
+const service = require("../services/Viva");
 
-router.get("/:courseId", (req, res) => {
-    const response = {
-        courseId: req.params.courseId,
+router.get("/:courseId", async (req, res) => {
+    const { courseId } = req.params;
+    try {
+        const { error, vivas } = await service.getByCourseId(courseId, database);
+        if (error === errors.DB_ERROR_NOT_FOUND) {
+            return res.status(404).send(error);
+        }
+        return res.status(200).send(vivas);
+    } catch (exception) {
+        console.log(exception);
+        return res.status(500).send();
     }
-    res.send(response);
 });
-router.get("/:courseId/:trainerId", (req, res) => {
-    const response = {
-        courseId: req.params.courseId,
-        trainerId: req.params.trainerId,
-    };
-    res.send(response);
-});
-router.get("/:courseId/:trainerId/:traineeId", (req, res) => {
-    const response = {
-        courseId: req.params.courseId,
-        trainerId: req.params.trainerId,
-        traineeId: req.params.traineeId,
-    };
-    res.send(response);
-});
-router.post("", (req, res) => {
-    const {error, value} = viva.validate(req.body);
-    if (error) {
-        res.status(400).send(error["details"][0]["message"]);
-        return;
+router.get("/:courseId/:trainerId", async (req, res) => {
+    const { courseId, trainerId } = req.params;
+    try {
+        const { error, vivas } = await service.getByCourseIdTrainerId(courseId, trainerId, database);
+        if (error === errors.DB_ERROR_NOT_FOUND) {
+            return res.status(404).send(error);
+        }
+        return res.status(200).send(vivas);
+    } catch (exception) {
+        console.log(exception);
+        return res.status(500).send();
     }
-    res.send(value);
 });
-router.put("", (req, res) => {
-    const {error, value} = viva.validate(req.body);
-    if (error) {
-        res.status(400).send(error["details"][0]["message"]);
-        return;
+router.get("/:courseId/:trainerId/:traineeId", async (req, res) => {
+    const { courseId, trainerId, traineeId } = req.params;
+    try {
+        const { error, viva } = await service.getByCourseIdTrainerIdTraineeId(courseId, trainerId, traineeId, database);
+        if (error === errors.DB_ERROR_NOT_FOUND) {
+            return res.status(404).send(error);
+        }
+        return res.status(200).send(viva);
+    } catch (exception) {
+        console.log(exception);
+        return res.status(500).send();
     }
-    res.send(value);
+});
+router.post("", async (req, res) => {
+    const { error, viva } = validate(req.body);
+    if (error) return res.status(400).send(error);
+    try {
+        const { error, writtenViva } = await service.write(viva, database);
+        if (error === errors.DB_ERROR_ALREADY_EXISTS) {
+            return res.status(209).send(error);
+        }
+        return res.status(200).send(writtenViva);
+    } catch (exception) {
+        console.log(exception);
+        return res.status(500).send();
+    }
+});
+router.put("", async (req, res) => {
+    const { error, viva } = validate(req.body);
+    if (error) return res.status(400).send(error);
+    try {
+        const { error, oldViva } = await service.update(viva, database);
+        if (error === errors.DB_ERROR_NOT_FOUND) {
+            return res.status(404).send(error);
+        }
+        return res.status(200).send(oldViva);
+    } catch (exception) {
+        console.log(exception);
+        return res.status(500).send();
+    }
 });
 
 module.exports = router;

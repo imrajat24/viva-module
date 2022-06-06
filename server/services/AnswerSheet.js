@@ -1,17 +1,18 @@
 const getByCourseIdTrainerIdTraineeId = async (courseId, trainerId, traineeId, database) => {
     try {
-        const answerSheet = await database.getByCourseIdTrainerIdTraineeId(courseId, trainerId, traineeId);
-        return answerSheet;
-    } catch (error) {
-        throw error;
+        const { error, value: answerSheet } = await database.getByCourseIdTrainerIdTraineeId(courseId, trainerId, traineeId);
+        return { error, answerSheet };
+    } catch (exception) {
+        throw exception;
     }
 };
 
 const write = async (answerSheet, database) => {
     try {
-        await database.write(answerSheet);
-    } catch (error) {
-        throw error;
+        const { error, value: writtenAnswerSheet } = await database.write(answerSheet);
+        return { error, writtenAnswerSheet };
+    } catch (exception) {
+        throw exception;
     }
 };
 

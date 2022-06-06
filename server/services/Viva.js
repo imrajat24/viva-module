@@ -1,43 +1,45 @@
 const getByCourseId = async (courseId, database) => {
     try {
-        const vivas = await database.getByCourseId(courseId);
-        return vivas;
-    } catch (error) {
-        throw error;
+        const { error, value: vivas } = await database.getByCourseId(courseId);
+        return { error, vivas };
+    } catch (exception) {
+        throw exception;
     }
 };
 
 const getByCourseIdTrainerId = async (courseId, trainerId, database) => {
     try {
-        const vivas = await database.getByCourseIdTrainerId(courseId, trainerId);
-        return vivas;
-    } catch (error) {
-        throw error;
+        const { error, value: vivas } = await database.getByCourseIdTrainerId(courseId, trainerId);
+        return { error, vivas };
+    } catch (exception) {
+        throw exception;
     }
 };
 
 const getByCourseIdTrainerIdTraineeId = async (courseId, trainerId, traineeId, database) => {
     try {
-        const viva = await database.getByCourseIdTrainerIdTraineeId(courseId, trainerId, traineeId);
-        return viva;
-    } catch (error) {
-        throw error;
+        const { error, value: viva } = await database.getByCourseIdTrainerIdTraineeId(courseId, trainerId, traineeId);
+        return { error, viva };
+    } catch (exception) {
+        throw exception;
     }
 };
 
 const write = async (viva, database) => {
     try {
-        await database.write(viva);
-    } catch (error) {
-        throw error;
+        const { error, value: writtenViva } = await database.write(viva);
+        return { error, writtenViva };
+    } catch (exception) {
+        throw exception;
     }
 };
 
 const update = async (viva, database) => {
     try {
-        await database.update(viva);
-    } catch (error) {
-        throw error;
+        const { error, value: oldViva } = await database.update(viva);
+        return { error, oldViva };
+    } catch (exception) {
+        throw exception;
     }
 };
 
