@@ -64,7 +64,7 @@ const write = async (answerSheet) => {
             courseId,
             trainerId,
             traineeId,
-            status: 1,
+            status: 2,
             questionPaper: qpid,
             answerSheet: asid,
         };
