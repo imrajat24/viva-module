@@ -96,8 +96,7 @@ const deleteByCourseIdSet = async (courseId, set) => {
 const write = async (questionPaper) => {
     const filter = {
         courseId: questionPaper["courseId"],
-        trainerId: questionPaper["trainerId"],
-        traineeId: questionPaper["traineeId"],
+        set: questionPaper["set"],
         deleted: false,
     };
     try {
