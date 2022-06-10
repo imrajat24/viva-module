@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const VivaSummary = () => {
   return (
     <div className="trainer1 row">
@@ -32,7 +33,9 @@ const VivaSummary = () => {
           </div>
         </div>
         <div className="viva_btn">
-          <button className="btn btn-primary">Complete Viva</button>
+          <Link to="/trainee">
+            <button className="btn btn-primary">Complete Viva</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import VivaQuesBody from "../containers/VivaQuesBody";
+import { Link } from "react-router-dom";
 const Viva = () => {
   return (
     <div className="trainer1 row">
@@ -12,11 +13,13 @@ const Viva = () => {
       </div>
       <div className="viva_contain trainer2">
         <VivaQuesBody />
+        {/* <VivaQuesBody />
         <VivaQuesBody />
-        <VivaQuesBody />
-        <VivaQuesBody />
+        <VivaQuesBody /> */}
         <div className="viva_btn">
-          <button className="btn btn-primary">continue</button>
+          <Link to="/summary">
+            <button className="btn btn-primary">continue</button>
+          </Link>
         </div>
       </div>
     </div>

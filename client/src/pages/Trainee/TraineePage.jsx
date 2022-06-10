@@ -1,6 +1,6 @@
 import Header from "../../containers/Header";
 import Trainee1 from "../../containers/Trainee1";
-const TraineePage = () => {
+const TraineePage = ({ courseId, userId, token }) => {
   return (
     <div>
       <Header />
