@@ -34,29 +34,36 @@ const Trainer1 = ({ courseId, userId, token }) => {
   function getRoles() {
     //* getting the roles from the api and then making a new array of user with their role in the specified course
     let roles = [];
+    let promises = [];
     let k = 0;
     users?.map((user) => {
-      setTimeout(() => {
+      promises.push(
         axios
           .get(
             `https://spicelearnweb.xrcstaging.in/webservice/rest/server.php?wstoken=${token}&wsfunction=local_api_user_role&moodlewsrestformat=json&courseid=${courseId}&username=${user.username}`
           )
           .then((data) => {
             roles.push(data.data.roles[0].shortname);
-            // setuserRoles((prev) => [
-            //   ...prev,
-            //   { ...user, role: data.data.roles[0].shortname },
-            // ]);
-            setisLoading1(false);
           })
-          .catch((err) => console.log(err));
-      }, 5 + k);
-      k += 5;
+          .catch((err) => console.log(err))
+      );
+    });
+    const loadingPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(null);
+      }, 1000);
     });
 
-    setTimeout(() => {
+    promises.push(loadingPromise);
+
+    Promise.all(promises).then(() => {
       console.log(roles);
-    }, 5 * users.length);
+      // setuserRoles((prev) => [
+      //   ...prev,
+      //   { ...user, role: data.data.roles[0].shortname },
+      // ]);
+      setisLoading1(false);
+    });
   }
 
   function filterTrainee() {
