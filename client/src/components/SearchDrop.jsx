@@ -3,41 +3,24 @@ import fuzzySearch from "../Methods/fuzzySearch";
 import { useEffect, useState } from "react";
 
 // Employee ID's Dropdown
-const SearchDropEmp = ({ input_name, input_email, trainee }) => {
-  const [emp, setemp] = useState([]);
+const SearchDropEmp = ({ input_name, input_email, users }) => {
   const [empCode, setEmpCode] = useState([]);
-  function getNames() {
-    trainee?.map((user) =>
-      setemp([
-        ...emp,
-        {
-          name: user.username,
-          value: user.firstname,
-          email: user.email,
-        },
-      ])
-    );
-  }
 
   function getEmail() {
-    emp?.map((data) => {
-      setEmpCode([
-        ...empCode,
-        {
-          name: data.name,
-          value: data.value,
-          keys: data.name,
-        },
-      ]);
+    const newEmpCode = [];
+    users?.map((user) => {
+      newEmpCode.push({
+        name: user.name,
+        value: user.name,
+        key: user.name,
+      });
     });
+    setEmpCode(newEmpCode);
   }
-  useEffect(() => {
-    getNames();
-  }, [trainee]);
 
   useEffect(() => {
     getEmail();
-  }, [emp]);
+  }, [users]);
 
   return (
     <div>
@@ -48,8 +31,8 @@ const SearchDropEmp = ({ input_name, input_email, trainee }) => {
         emptyMessage="Employee ID Not found!"
         placeholder="Select Employee ID"
         onChange={(e) => {
-          const employee = emp.find((v) => v.value === e);
-          input_name.current.value = employee.value;
+          const employee = users.find((v) => v.name === e);
+          input_name.current.value = employee.firstname;
           input_email.current.value = employee.email;
         }}
       />
