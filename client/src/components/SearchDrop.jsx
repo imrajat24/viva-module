@@ -1,10 +1,12 @@
 import SelectSearch from "react-select-search";
 import fuzzySearch from "../Methods/fuzzySearch";
+import uniqueRandom from "unique-random";
 import { useEffect, useState } from "react";
 
 // Employee ID's Dropdown
 const SearchDropEmp = ({ input_name, input_email, users }) => {
-  const [empCode, setEmpCode] = useState([]);
+  //* state to store the details of the selected user from the user list
+  const [currentEmp, setcurrentEmp] = useState([]);
 
   function getEmail() {
     const newEmpCode = [];
@@ -12,10 +14,11 @@ const SearchDropEmp = ({ input_name, input_email, users }) => {
       newEmpCode.push({
         name: user.name,
         value: user.name,
+        firstname: user.firstname,
         key: user.name,
       });
     });
-    setEmpCode(newEmpCode);
+    setcurrentEmp(newEmpCode);
   }
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const SearchDropEmp = ({ input_name, input_email, users }) => {
   return (
     <div>
       <SelectSearch
-        options={empCode}
+        options={currentEmp}
         search
         filterOptions={fuzzySearch}
         emptyMessage="Employee ID Not found!"
@@ -41,26 +44,25 @@ const SearchDropEmp = ({ input_name, input_email, users }) => {
 };
 
 // Set Number's Dropdown
-const SearchDropSet = ({ courseId }) => {
-  // fetching the number of sets in the particular course
-  // useEffect(() => {
-  //   axios.get(`http://localhost:8080/questionpaper/320`).then((data) => {
-  //     console.log(data.data);
-  //   });
-  // }, []);
+const SearchDropSet = ({ questionPaper }) => {
+  // ! addding a random number for value key
+  const random = uniqueRandom(1, 10);
 
-  // 1. random set numbers
-  const [setNumbers, setSetNumbers] = useState([
-    { name: "Set A", value: 1 },
-    { name: "Set B", value: 2 },
-    { name: "Set C", value: 3 },
-    { name: "Set D", value: 4 },
-  ]);
+  // * state to store the sets from the question paper object in a specified format
+  const [setNumber, setsetNumber] = useState([]);
+
+  // *
+  useEffect(() => {
+    // ! extract the data from the question paper object to the set object
+    questionPaper?.map((paper) => {
+      setsetNumber((prev) => [...prev, { name: paper.set, value: random() }]);
+    });
+  }, [questionPaper]);
 
   return (
     <div>
       <SelectSearch
-        options={setNumbers}
+        options={setNumber}
         search
         filterOptions={fuzzySearch}
         emptyMessage="Set Number Not found!"

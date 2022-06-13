@@ -2,7 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { SearchDropEmp, SearchDropSet } from "../components/SearchDrop";
 import getDate from "../Methods/getDate";
 import { Link } from "react-router-dom";
-const Trainer1 = ({ users, isLoading, courseId, userId, token }) => {
+const Trainer1 = ({
+  users,
+  isLoading,
+  courseId,
+  userId,
+  token,
+  questionPaper,
+}) => {
   //! global variables for name and email (passed via props)
   const input_name = useRef();
   const input_email = useRef();
@@ -51,7 +58,7 @@ const Trainer1 = ({ users, isLoading, courseId, userId, token }) => {
                 disabled
               />
               <div className="trainer1_form-dropdownContainer">
-                <SearchDropSet courseId={courseId} />
+                <SearchDropSet questionPaper={questionPaper} />
                 <div className="trainer1_form-dropdownContainer-child2">
                   <p>or</p>
                   <Link to="/createSet">

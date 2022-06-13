@@ -1,6 +1,13 @@
 import Header from "../../containers/Header";
 import Trainer1 from "../../containers/Trainer1";
-const TrainerPage = ({ users, isLoading, courseId, userId, token }) => {
+const TrainerPage = ({
+  users,
+  isLoading,
+  courseId,
+  userId,
+  token,
+  questionPaper,
+}) => {
   return (
     <div>
       <Header />
@@ -10,6 +17,7 @@ const TrainerPage = ({ users, isLoading, courseId, userId, token }) => {
         courseId={courseId}
         userId={userId}
         token={token}
+        questionPaper={questionPaper}
       />
     </div>
   );

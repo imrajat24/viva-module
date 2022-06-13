@@ -13,9 +13,9 @@ const Viva = () => {
       </div>
       <div className="viva_contain trainer2">
         <VivaQuesBody />
-        {/* <VivaQuesBody />
         <VivaQuesBody />
-        <VivaQuesBody /> */}
+        <VivaQuesBody />
+        <VivaQuesBody />
         <div className="viva_btn">
           <Link to="/summary">
             <button className="btn btn-primary">continue</button>

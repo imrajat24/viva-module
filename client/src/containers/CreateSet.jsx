@@ -1,5 +1,5 @@
 import CopySetScroll from "../components/CopySetScroll";
-import QuesBody from "../components/QuesBody";
+import QuesBody from "../components/CreatesetQuesbody";
 const CreateSet = () => {
   return (
     <div className="trainer1 row">

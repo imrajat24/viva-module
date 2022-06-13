@@ -1,6 +1,4 @@
-import React from "react";
-
-const QuesBody = () => {
+const CreatesetQuesbody = () => {
   return (
     <div className="ques_body">
       <div className="ques_body-ques">
@@ -31,4 +29,4 @@ const QuesBody = () => {
   );
 };
 
-export default QuesBody;
+export default CreatesetQuesbody;

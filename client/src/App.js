@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 function App() {
   //! getting the course id from mooddle (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
-  const courseId = 52;
+  const courseId = 546;
 
   //! getting the userId from the system (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const userId = 12345;
@@ -28,16 +28,18 @@ function App() {
   //     });
   // });
 
-  // ! state to get the users data
+  // !-------------------------------------------------------------------------------------------------------------------------------
 
-  //! States
+  // ? Trainer 1 Component
+
+  //! States of the Trainer1 component
   //* all users with their basic details
   const [users, setUsers] = useState(null);
 
   //* Loading State
   const [isLoading, setisLoading] = useState(true);
 
-  //! API Call's
+  //! Functions and API Call's
   function getUsers() {
     axios
       .get(
@@ -81,16 +83,36 @@ function App() {
     });
 
     Promise.all(promises).then(() => {
-      console.log(trainees);
       setUsers(trainees);
       setisLoading(false);
     });
+  }
+
+  // !-------------------------------------------------------------------------------------------------------------------------------
+
+  // ? Search Drop Component
+
+  // ! States of the SearchDrop Component
+  // * state to store the total question papers that has been made in a given course id
+  const [questionPaper, setquestionPaper] = useState([]);
+
+  // ! Functions and API calls
+
+  function getQuestionPaper() {
+    axios
+      .get(`http://localhost:8080/questionpaper/${courseId}`)
+      .then((data) => {
+        setquestionPaper(data.data);
+      })
+      .catch((err) => console.log(err.response.data));
   }
 
   //! Use Effect hooks
   //* get all the users(including trainers and trainees) present in the current course
   useEffect(() => {
     getUsers();
+    //* get the number of question papers in a course id (if exists)
+    getQuestionPaper();
   }, []);
 
   return (
@@ -106,6 +128,7 @@ function App() {
               courseId={courseId}
               userId={userId}
               token={token}
+              questionPaper={questionPaper}
             />
           }
         />
