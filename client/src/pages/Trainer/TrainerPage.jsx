@@ -4,9 +4,13 @@ const TrainerPage = ({
   users,
   isLoading,
   courseId,
-  userId,
+  trainerId,
+  trainerName,
   token,
   questionPaper,
+  currentUser,
+  setcurrentUser,
+  setcurrentSet,
 }) => {
   return (
     <div>
@@ -15,9 +19,13 @@ const TrainerPage = ({
         users={users}
         isLoading={isLoading}
         courseId={courseId}
-        userId={userId}
+        trainerId={trainerId}
+        trainerName={trainerName}
         token={token}
         questionPaper={questionPaper}
+        currentUser={currentUser}
+        setcurrentUser={setcurrentUser}
+        setcurrentSet={setcurrentSet}
       />
     </div>
   );

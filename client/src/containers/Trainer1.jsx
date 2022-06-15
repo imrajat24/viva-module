@@ -6,9 +6,13 @@ const Trainer1 = ({
   users,
   isLoading,
   courseId,
-  userId,
+  trainerId,
+  trainerName,
   token,
   questionPaper,
+  currentUser,
+  setcurrentUser,
+  setcurrentSet,
 }) => {
   //! global variables for name and email (passed via props)
   const input_name = useRef();
@@ -27,7 +31,7 @@ const Trainer1 = ({
           <div>
             <div className="trainer1_header">
               <div className="trainer1_header--1">
-                <p>Hello Trainer,</p>
+                <p>Hello {trainerName},</p>
                 <p>{date}</p>
               </div>
               <div className="trainer1_header--2">
@@ -42,6 +46,8 @@ const Trainer1 = ({
                 input_name={input_name}
                 input_email={input_email}
                 users={users}
+                currentUser={currentUser}
+                setcurrentUser={setcurrentUser}
               />
               <input
                 type="text"
@@ -49,6 +55,7 @@ const Trainer1 = ({
                 placeholder="Name"
                 ref={input_name}
                 disabled
+                required
               />
               <input
                 type="email"
@@ -56,9 +63,13 @@ const Trainer1 = ({
                 placeholder="Email"
                 ref={input_email}
                 disabled
+                required
               />
               <div className="trainer1_form-dropdownContainer">
-                <SearchDropSet questionPaper={questionPaper} />
+                <SearchDropSet
+                  questionPaper={questionPaper}
+                  setcurrentSet={setcurrentSet}
+                />
                 <div className="trainer1_form-dropdownContainer-child2">
                   <p>or</p>
                   <Link to="/createSet">
@@ -68,7 +79,9 @@ const Trainer1 = ({
               </div>
               <div className="trainer1_form-btns">
                 <Link to="/viva">
-                  <button className="btn btn-primary">Start Viva</button>
+                  <button type="submit" className="btn btn-primary">
+                    Start Viva
+                  </button>
                 </Link>
                 <Link to="/downloadReport">
                   <button className="btn btn-secondary">

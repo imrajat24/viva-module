@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-const VivaSummary = () => {
+const VivaSummary = ({ currentUser, currentSet }) => {
   return (
     <div className="trainer1 row">
       <div className="viva_heading viva_summaryHeading">
@@ -9,22 +9,22 @@ const VivaSummary = () => {
         <div className="summary ques_body">
           <div className="summary_point">
             <span className="summary_point-heading">Employee code</span>
-            <span className="summary_point-value">123456</span>
+            <span className="summary_point-value">{currentUser.name}</span>
           </div>
 
           <div className="summary_point">
             <span className="summary_point-heading">name</span>
-            <span className="summary_point-value">test 1</span>
+            <span className="summary_point-value">{currentUser.firstname}</span>
           </div>
 
           <div className="summary_point">
             <span className="summary_point-heading">email id </span>
-            <span className="summary_point-value">test@spicejet.com</span>
+            <span className="summary_point-value">{currentUser.email}</span>
           </div>
 
           <div className="summary_point">
             <span className="summary_point-heading">set number</span>
-            <span className="summary_point-value">A</span>
+            <span className="summary_point-value">{currentSet}</span>
           </div>
 
           <div className="summary_point">

@@ -19,7 +19,7 @@
     "react-scripts": "5.0.1",
     "react-select-search": "^3.0.9",
     "sass": "^1.51.0",
-    "unique-random": "^3.0.0",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -11,8 +11,9 @@ function App() {
   //! getting the course id from mooddle (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const courseId = 546;
 
-  //! getting the userId from the system (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
-  const userId = 12345;
+  //! getting the trainerid and trainer name from the system (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
+  const trainerId = "12345";
+  const trainerName = "gaurav";
 
   //! getting the admin token for API access
   const token = process.env.REACT_APP_ADMIN_TOKEN;
@@ -96,6 +97,12 @@ function App() {
   // * state to store the total question papers that has been made in a given course id
   const [questionPaper, setquestionPaper] = useState([]);
 
+  // * state to hold the current selected user ..
+  const [currentUser, setcurrentUser] = useState();
+
+  // * state to hold the selected set ..
+  const [currentSet, setcurrentSet] = useState();
+
   // ! Functions and API calls
 
   function getQuestionPaper() {
@@ -126,16 +133,37 @@ function App() {
               users={users}
               isLoading={isLoading}
               courseId={courseId}
-              userId={userId}
+              trainerId={trainerId}
+              trainerName={trainerName}
               token={token}
               questionPaper={questionPaper}
+              currentUser={currentUser}
+              setcurrentUser={setcurrentUser}
+              setcurrentSet={setcurrentSet}
             />
           }
         />
         <Route path="/createSet" exact element={<CreateSetPage />} />
         <Route path="/downloadReport" exact element={<DownloadReportPage />} />
-        <Route path="/viva" exact element={<VivaPage />} />
-        <Route path="/summary" exact element={<VivaSummary />} />
+        <Route
+          path="/viva"
+          exact
+          element={
+            <VivaPage
+              currentUser={currentUser}
+              currentSet={currentSet}
+              questionPaper={questionPaper}
+              trainerId={trainerId}
+            />
+          }
+        />
+        <Route
+          path="/summary"
+          exact
+          element={
+            <VivaSummary currentUser={currentUser} currentSet={currentSet} />
+          }
+        />
         <Route path="/trainee" exact element={<TraineePage />} />
       </Routes>
     </div>

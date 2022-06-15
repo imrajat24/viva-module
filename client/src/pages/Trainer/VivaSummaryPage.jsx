@@ -1,10 +1,10 @@
 import Header from "../../containers/Header";
 import VivaSummary from "../../containers/VivaSummary";
-const VivaSummaryPage = () => {
+const VivaSummaryPage = ({ currentUser, currentSet }) => {
   return (
     <div>
       <Header />
-      <VivaSummary />
+      <VivaSummary currentUser={currentUser} currentSet={currentSet} />
     </div>
   );
 };
