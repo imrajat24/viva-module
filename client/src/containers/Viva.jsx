@@ -7,18 +7,13 @@ const Viva = ({ currentUser, currentSet, questionPaper, trainerId }) => {
   let selectedQuestionPaper = questionPaper?.find(
     (paper) => paper.set === currentSet
   );
-  const [allQuesState, setAllQuesState] = useState();
+  const [allQues, setallQues] = useState();
 
-  const getQuesStateHandler = (i) => {
-    return (quesState) => {
-      let newState = [];
-      if (allQuesState) {
-        newState = [...allQuesState];
-        newState[i] = quesState;
-        console.log(newState[i]);
-        // setAllQuesState(newState);
-      }
-    };
+  const setQues = (index, ques) => {
+    let newAllQues = [];
+    newAllQues = [...allQues];
+    newAllQues[index] = ques;
+    setallQues(newAllQues);
   };
 
   // ! useeffect
@@ -31,10 +26,9 @@ const Viva = ({ currentUser, currentSet, questionPaper, trainerId }) => {
       }
       newState.push(emptyArray);
     });
-    setAllQuesState(newState);
+    setallQues(newState);
   }, []);
-  console.log(allQuesState);
-  return allQuesState ? (
+  return allQues ? (
     <div className="trainer1 row">
       <div className="viva_heading">
         <h3>
@@ -51,7 +45,9 @@ const Viva = ({ currentUser, currentSet, questionPaper, trainerId }) => {
               question={question.questionStatement}
               steps={question.steps}
               key={uuidv4()}
-              getQuesStateHandler={getQuesStateHandler(index)}
+              setQues={setQues}
+              index={index}
+              allQues={allQues}
             />
           );
         })}

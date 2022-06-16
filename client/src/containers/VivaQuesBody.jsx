@@ -3,22 +3,8 @@ import right from "../images/right.png";
 import rightSelected from "../images/right-selected.png";
 import { v4 as uuidv4 } from "uuid";
 
-const VivaQuesBody = ({ question, steps, getQuesStateHandler }) => {
-  const [rightImg, setRightImg] = useState();
-
-  useEffect(() => {
-    const emptyArray = [];
-    for (let i = 0; i < steps.length; i++) {
-      emptyArray.push(false);
-    }
-    setRightImg(emptyArray);
-  }, []);
-
-  useEffect(() => {
-    getQuesStateHandler(rightImg);
-  }, [rightImg]);
-
-  return rightImg ? (
+const VivaQuesBody = ({ question, steps, setQues, index, allQues }) => {
+  return allQues ? (
     <div className="viva_ques">
       <div className="ques_body viva-quesBody">
         <div className="ques_body-ques">
@@ -26,18 +12,18 @@ const VivaQuesBody = ({ question, steps, getQuesStateHandler }) => {
         </div>
 
         <div className="ques_body-answers">
-          {steps?.map((step, index) => {
+          {steps?.map((step, stepIndex) => {
             return (
               <div className="ques_body-answer" key={uuidv4()}>
                 <p className="ans">{step.description}</p>
                 <div className="viva-quesBody-answer-step">
                   <img
-                    src={rightImg[index] ? rightSelected : right}
+                    src={allQues[index][stepIndex] ? rightSelected : right}
                     alt="right"
                     onClick={() => {
-                      const emptyArray = [...rightImg];
-                      emptyArray[index] = !emptyArray[index];
-                      setRightImg(emptyArray);
+                      const emptyArray = [...allQues[index]];
+                      emptyArray[stepIndex] = !emptyArray[stepIndex];
+                      setQues(index, emptyArray);
                     }}
                   />
                 </div>

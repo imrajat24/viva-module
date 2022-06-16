@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { SearchDropEmp, SearchDropSet } from "../components/SearchDrop";
+import { useNavigate } from "react-router-dom";
 import getDate from "../Methods/getDate";
 import { Link } from "react-router-dom";
 const Trainer1 = ({
@@ -12,11 +13,23 @@ const Trainer1 = ({
   questionPaper,
   currentUser,
   setcurrentUser,
+  currentSet,
   setcurrentSet,
 }) => {
   //! global variables for name and email (passed via props)
   const input_name = useRef();
   const input_email = useRef();
+  const navigate = useNavigate();
+
+  // ! Funtions
+  const inputHandler = (e) => {
+    e.preventDefault();
+    console.log(input_name, input_email);
+    if (input_name.current.value === "" || input_email.current.value === "")
+      alert("Please select the id of the trainer");
+    if (!currentSet) alert("Please select the set number from the dropdown");
+    else navigate("/viva");
+  };
 
   //! importing date from the Date method
   const date = getDate();
@@ -78,11 +91,11 @@ const Trainer1 = ({
                 </div>
               </div>
               <div className="trainer1_form-btns">
-                <Link to="/viva">
-                  <button type="submit" className="btn btn-primary">
-                    Start Viva
-                  </button>
-                </Link>
+                {/* <Link to=""> */}
+                <button onClick={inputHandler} className="btn btn-primary">
+                  Start Viva
+                </button>
+                {/* </Link> */}
                 <Link to="/downloadReport">
                   <button className="btn btn-secondary">
                     Download Reports

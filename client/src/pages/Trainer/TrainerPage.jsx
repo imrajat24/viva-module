@@ -10,6 +10,7 @@ const TrainerPage = ({
   questionPaper,
   currentUser,
   setcurrentUser,
+  currentSet,
   setcurrentSet,
 }) => {
   return (
@@ -25,6 +26,7 @@ const TrainerPage = ({
         questionPaper={questionPaper}
         currentUser={currentUser}
         setcurrentUser={setcurrentUser}
+        currentSet={currentSet}
         setcurrentSet={setcurrentSet}
       />
     </div>

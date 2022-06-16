@@ -18,7 +18,8 @@ function App() {
   //! getting the admin token for API access
   const token = process.env.REACT_APP_ADMIN_TOKEN;
 
-  //! to get the role of the user accessing the activity
+  //! to get the role of the user accessing the activity (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
+  const role = "teacher";
   // useEffect(() => {
   //   axios
   //     .get(
@@ -125,24 +126,29 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/"
-          exact
-          element={
-            <TrainerPage
-              users={users}
-              isLoading={isLoading}
-              courseId={courseId}
-              trainerId={trainerId}
-              trainerName={trainerName}
-              token={token}
-              questionPaper={questionPaper}
-              currentUser={currentUser}
-              setcurrentUser={setcurrentUser}
-              setcurrentSet={setcurrentSet}
-            />
-          }
-        />
+        {role === "student" ? (
+          <Route path="/" exact element={<TraineePage />} />
+        ) : (
+          <Route
+            path="/"
+            exact
+            element={
+              <TrainerPage
+                users={users}
+                isLoading={isLoading}
+                courseId={courseId}
+                trainerId={trainerId}
+                trainerName={trainerName}
+                token={token}
+                questionPaper={questionPaper}
+                currentUser={currentUser}
+                setcurrentUser={setcurrentUser}
+                currentSet={currentSet}
+                setcurrentSet={setcurrentSet}
+              />
+            }
+          />
+        )}
         <Route path="/createSet" exact element={<CreateSetPage />} />
         <Route path="/downloadReport" exact element={<DownloadReportPage />} />
         <Route
@@ -164,7 +170,6 @@ function App() {
             <VivaSummary currentUser={currentUser} currentSet={currentSet} />
           }
         />
-        <Route path="/trainee" exact element={<TraineePage />} />
       </Routes>
     </div>
   );
