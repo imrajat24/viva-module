@@ -5,7 +5,6 @@ const TrainerPage = ({
   isLoading,
   courseId,
   trainerId,
-  trainerName,
   token,
   questionPaper,
   currentUser,
@@ -21,7 +20,6 @@ const TrainerPage = ({
         isLoading={isLoading}
         courseId={courseId}
         trainerId={trainerId}
-        trainerName={trainerName}
         token={token}
         questionPaper={questionPaper}
         currentUser={currentUser}

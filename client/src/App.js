@@ -8,12 +8,14 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 function App() {
+  // !-------------------------------------------------------------------------------------------------------------------------------
+  // ? Functions and methods required for the LMS
   //! getting the course id from mooddle (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const courseId = 546;
 
   //! getting the trainerid and trainer name from the system (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const trainerId = "12345";
-  const trainerName = "gaurav";
+  const traineeId = "bhavya";
 
   //! getting the admin token for API access
   const token = process.env.REACT_APP_ADMIN_TOKEN;
@@ -29,6 +31,14 @@ function App() {
   //       console.log(data);
   //     });
   // });
+
+  // !-------------------------------------------------------------------------------------------------------------------------------
+
+  // ? Trainee 1 Component
+
+  // ! States
+  // * state to store the status of the trainee viva (Not Started: 0 , Inprogress:1, Waiting for Acknowledgement:2 and Completed:3)
+  const [status, setStatus] = useState(0);
 
   // !-------------------------------------------------------------------------------------------------------------------------------
 
@@ -127,7 +137,19 @@ function App() {
     <div className="App">
       <Routes>
         {role === "student" ? (
-          <Route path="/" exact element={<TraineePage />} />
+          <Route
+            path="/"
+            exact
+            element={
+              <TraineePage
+                status={status}
+                setStatus={setStatus}
+                trainerId={trainerId}
+                traineeId={traineeId}
+                courseId={courseId}
+              />
+            }
+          />
         ) : (
           <Route
             path="/"
@@ -138,7 +160,6 @@ function App() {
                 isLoading={isLoading}
                 courseId={courseId}
                 trainerId={trainerId}
-                trainerName={trainerName}
                 token={token}
                 questionPaper={questionPaper}
                 currentUser={currentUser}
