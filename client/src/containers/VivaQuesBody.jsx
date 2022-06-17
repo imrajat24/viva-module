@@ -1,10 +1,19 @@
-import { useEffect, useState } from "react";
 import right from "../images/right.png";
 import rightSelected from "../images/right-selected.png";
 import { v4 as uuidv4 } from "uuid";
 
-const VivaQuesBody = ({ question, steps, setQues, index, allQues }) => {
-  return allQues ? (
+const VivaQuesBody = ({
+  question,
+  steps,
+  index,
+  marks,
+  setQues,
+  score,
+  setScore,
+  answerObject,
+}) => {
+  console.log(answerObject);
+  return marks ? (
     <div className="viva_ques">
       <div className="ques_body viva-quesBody">
         <div className="ques_body-ques">
@@ -18,12 +27,23 @@ const VivaQuesBody = ({ question, steps, setQues, index, allQues }) => {
                 <p className="ans">{step.description}</p>
                 <div className="viva-quesBody-answer-step">
                   <img
-                    src={allQues[index][stepIndex] ? rightSelected : right}
+                    src={marks[index][stepIndex] ? rightSelected : right}
                     alt="right"
                     onClick={() => {
-                      const emptyArray = [...allQues[index]];
+                      const emptyArray = [...marks[index]];
                       emptyArray[stepIndex] = !emptyArray[stepIndex];
                       setQues(index, emptyArray);
+                      // if (emptyArray[stepIndex])
+                      //   setScore((prev) => prev + step.totalMarks);
+                      // else if (!emptyArray[stepIndex])
+                      //   setScore((prev) => prev - step.totalMarks);
+                      answerObject.map((answer) => {
+                        answer.steps.map((answerStep) => {
+                          emptyArray[stepIndex]
+                            ? (answerStep.givenMarks = step.totalMarks)
+                            : (answerStep.givenMarks = 0);
+                        });
+                      });
                     }}
                   />
                 </div>
@@ -33,7 +53,15 @@ const VivaQuesBody = ({ question, steps, setQues, index, allQues }) => {
         </div>
       </div>
       <div className="ques_body ques_body-remarks">
-        <input type="text" name="" id="" placeholder="Remarks" />
+        <input
+          type="text"
+          placeholder="Remarks"
+          onBlur={(e) => {
+            answerObject.map((answer) => {
+              answer.remarks = e.target.value;
+            });
+          }}
+        />
       </div>
     </div>
   ) : null;

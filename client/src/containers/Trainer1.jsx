@@ -26,8 +26,6 @@ const Trainer1 = ({
   const inputHandler = (e) => {
     //* form validation
     e.preventDefault();
-    console.log(input_name, input_email);
-    console.log(currentUser);
     if (input_name.current.value === "" || input_email.current.value === "")
       alert("Please select the id of the trainer");
     if (!currentSet) alert("Please select the set number from the dropdown");
