@@ -1,6 +1,12 @@
 import Header from "../../containers/Header";
 import Viva from "../../containers/Viva";
-const VivaPage = ({ currentUser, currentSet, questionPaper, trainerId }) => {
+const VivaPage = ({
+  currentUser,
+  currentSet,
+  questionPaper,
+  trainerId,
+  courseId,
+}) => {
   return (
     <div>
       <Header />
@@ -9,6 +15,7 @@ const VivaPage = ({ currentUser, currentSet, questionPaper, trainerId }) => {
         currentSet={currentSet}
         questionPaper={questionPaper}
         trainerId={trainerId}
+        courseId={courseId}
       />
     </div>
   );

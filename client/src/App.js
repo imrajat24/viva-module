@@ -181,6 +181,7 @@ function App() {
               currentSet={currentSet}
               questionPaper={questionPaper}
               trainerId={trainerId}
+              courseId={courseId}
             />
           }
         />

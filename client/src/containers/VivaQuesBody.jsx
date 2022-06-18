@@ -8,11 +8,9 @@ const VivaQuesBody = ({
   index,
   marks,
   setQues,
-  score,
-  setScore,
-  answerObject,
+  temp1,
+  getRemarks,
 }) => {
-  console.log(answerObject);
   return marks ? (
     <div className="viva_ques">
       <div className="ques_body viva-quesBody">
@@ -22,6 +20,12 @@ const VivaQuesBody = ({
 
         <div className="ques_body-answers">
           {steps?.map((step, stepIndex) => {
+            let temp2 = {};
+            temp2.description = step.description;
+            if (marks[index][stepIndex]) temp2.givenMarks = step.totalMarks;
+            else temp2.givenMarks = 0;
+            temp1.push(temp2);
+
             return (
               <div className="ques_body-answer" key={uuidv4()}>
                 <p className="ans">{step.description}</p>
@@ -33,17 +37,6 @@ const VivaQuesBody = ({
                       const emptyArray = [...marks[index]];
                       emptyArray[stepIndex] = !emptyArray[stepIndex];
                       setQues(index, emptyArray);
-                      // if (emptyArray[stepIndex])
-                      //   setScore((prev) => prev + step.totalMarks);
-                      // else if (!emptyArray[stepIndex])
-                      //   setScore((prev) => prev - step.totalMarks);
-                      answerObject.map((answer) => {
-                        answer.steps.map((answerStep) => {
-                          emptyArray[stepIndex]
-                            ? (answerStep.givenMarks = step.totalMarks)
-                            : (answerStep.givenMarks = 0);
-                        });
-                      });
                     }}
                   />
                 </div>
@@ -57,9 +50,7 @@ const VivaQuesBody = ({
           type="text"
           placeholder="Remarks"
           onBlur={(e) => {
-            answerObject.map((answer) => {
-              answer.remarks = e.target.value;
-            });
+            getRemarks(index, e.target.value);
           }}
         />
       </div>
