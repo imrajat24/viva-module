@@ -1,6 +1,37 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-const VivaSummary = ({ currentUser, currentSet }) => {
-  return (
+import { useNavigate } from "react-router-dom";
+const VivaSummary = ({
+  courseId,
+  currentUser,
+  currentSet,
+  trainerId,
+  totalScore,
+}) => {
+  const [score, setScore] = useState(0);
+  const navigate = useNavigate();
+  // !useeffects and functions
+  useEffect(() => {
+    if (currentUser) {
+      axios
+        .get(
+          `http://localhost:8080/answersheet/${courseId}/${trainerId}/${currentUser.name}`
+        )
+        .then((data) => {
+          data.data.answers.map((answer) => {
+            answer.steps.map((step) => {
+              setScore((prev) => prev + step.givenMarks);
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else navigate("/");
+  }, []);
+
+  return currentUser ? (
     <div className="trainer1 row">
       <div className="viva_heading viva_summaryHeading">
         <h3>Viva summary</h3>
@@ -29,7 +60,9 @@ const VivaSummary = ({ currentUser, currentSet }) => {
 
           <div className="summary_point">
             <span className="summary_point-heading">marks obtained</span>
-            <span className="summary_point-value">15/20</span>
+            <span className="summary_point-value">
+              {score}/{totalScore}
+            </span>
           </div>
         </div>
         <div className="viva_btn">
@@ -39,7 +72,7 @@ const VivaSummary = ({ currentUser, currentSet }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default VivaSummary;

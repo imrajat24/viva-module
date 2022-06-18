@@ -2,7 +2,7 @@ import TrainerPage from "./pages/Trainer/TrainerPage";
 import CreateSetPage from "./pages/Trainer/CreateSetPage";
 import DownloadReportPage from "./pages/Trainer/DownloadReportPage";
 import VivaPage from "./pages/Trainer/VivaPage";
-import VivaSummary from "./pages/Trainer/VivaSummaryPage";
+import VivaSummaryPage from "./pages/Trainer/VivaSummaryPage";
 import TraineePage from "./pages/Trainee/TraineePage";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -125,6 +125,29 @@ function App() {
       .catch((err) => console.log(err.response.data));
   }
 
+  // !-------------------------------------------------------------------------------------------------------------------------------
+
+  // ? Viva Summary
+
+  // ! States
+  // * state to store the total marks of the selected question paper
+  const [totalScore, setTotalScore] = useState(0);
+
+  useEffect(() => {
+    const selectedQuestionPaper = questionPaper.find((paper) => {
+      return paper.set === currentSet;
+    });
+    console.log(questionPaper);
+    console.log(selectedQuestionPaper);
+    if (selectedQuestionPaper) {
+      selectedQuestionPaper.questions.map((question) => {
+        question.steps.map((step) => {
+          setTotalScore((prev) => prev + step.totalMarks);
+        });
+      });
+    }
+  }, [questionPaper, currentSet]);
+
   //! Use Effect hooks
   //* get all the users(including trainers and trainees) present in the current course
   useEffect(() => {
@@ -189,7 +212,13 @@ function App() {
           path="/summary"
           exact
           element={
-            <VivaSummary currentUser={currentUser} currentSet={currentSet} />
+            <VivaSummaryPage
+              courseId={courseId}
+              currentUser={currentUser}
+              currentSet={currentSet}
+              trainerId={trainerId}
+              totalScore={totalScore}
+            />
           }
         />
       </Routes>

@@ -30,7 +30,6 @@ const Trainer1 = ({
       alert("Please select the id of the trainer");
     if (!currentSet) alert("Please select the set number from the dropdown");
     else {
-      // navigate("/viva");
       // * creating the viva for the user of which details are selected
       axios
         .post("http://localhost:8080/viva", {
@@ -41,11 +40,9 @@ const Trainer1 = ({
         })
         .then((data) => {
           if (data.data.message === "Entity already exists") {
-            const check =
-              "Viva is already created for the selected user. Click OK to update or Cancel to ignore.";
-            if (window.confirm(check)) navigate("/viva");
-            else navigate("/");
-          } else navigate("/viva");
+            alert("Viva is already created for the selected user");
+            navigate("/");
+          }
         })
         .catch((err) => {
           console.log(err);

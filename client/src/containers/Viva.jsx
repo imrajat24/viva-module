@@ -17,7 +17,6 @@ const Viva = ({
 
   // * variables to store the answer object so that it can be passed in the DB through API
   const answerObject = [];
-  // let remarksObject = remarks;
   // ! selecting the current question paper from the list of question papers present in a course id..
   let selectedQuestionPaper = questionPaper?.find(
     (paper) => paper.set === currentSet
