@@ -5,7 +5,7 @@ const VivaSummaryPage = ({
   currentUser,
   currentSet,
   trainerId,
-  totalScore,
+  questionPaper,
 }) => {
   return (
     <div>
@@ -15,7 +15,7 @@ const VivaSummaryPage = ({
         currentUser={currentUser}
         currentSet={currentSet}
         trainerId={trainerId}
-        totalScore={totalScore}
+        questionPaper={questionPaper}
       />
     </div>
   );

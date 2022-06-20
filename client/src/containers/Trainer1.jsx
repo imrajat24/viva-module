@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import getDate from "../Methods/getDate";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 const Trainer1 = ({
   users,
   isLoading,
@@ -42,7 +41,7 @@ const Trainer1 = ({
           if (data.data.message === "Entity already exists") {
             alert("Viva is already created for the selected user");
             navigate("/");
-          }
+          } else navigate("/viva");
         })
         .catch((err) => {
           console.log(err);

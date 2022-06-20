@@ -7,27 +7,49 @@ const VivaSummary = ({
   currentUser,
   currentSet,
   trainerId,
-  totalScore,
+  questionPaper,
 }) => {
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
   // !useeffects and functions
+
+  // * state to store the total marks of the selected question paper
+  const [totalScore, setTotalScore] = useState(0);
+
   useEffect(() => {
     if (currentUser) {
-      axios
-        .get(
-          `http://localhost:8080/answersheet/${courseId}/${trainerId}/${currentUser.name}`
-        )
-        .then((data) => {
-          data.data.answers.map((answer) => {
-            answer.steps.map((step) => {
-              setScore((prev) => prev + step.givenMarks);
-            });
+      // * get the total score from the questionpapers
+      const selectedQuestionPaper = questionPaper.find((paper) => {
+        return paper.set === currentSet;
+      });
+      console.log(questionPaper);
+      console.log(selectedQuestionPaper);
+      if (selectedQuestionPaper) {
+        selectedQuestionPaper.questions.map((question) => {
+          question.steps.map((step) => {
+            setTotalScore((prev) => prev + step.totalMarks);
           });
-        })
-        .catch((err) => {
-          console.log(err);
         });
+      }
+
+      console.log(courseId, trainerId, currentUser.name);
+      // * get the score from the answersheet
+      setTimeout(() => {
+        axios
+          .get(
+            `http://localhost:8080/answersheet/${courseId}/${trainerId}/${currentUser.name}`
+          )
+          .then((data) => {
+            data.data.answers.map((answer) => {
+              answer.steps.map((step) => {
+                setScore((prev) => prev + step.givenMarks);
+              });
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, 100);
     } else navigate("/");
   }, []);
 

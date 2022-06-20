@@ -125,29 +125,6 @@ function App() {
       .catch((err) => console.log(err.response.data));
   }
 
-  // !-------------------------------------------------------------------------------------------------------------------------------
-
-  // ? Viva Summary
-
-  // ! States
-  // * state to store the total marks of the selected question paper
-  const [totalScore, setTotalScore] = useState(0);
-
-  useEffect(() => {
-    const selectedQuestionPaper = questionPaper.find((paper) => {
-      return paper.set === currentSet;
-    });
-    console.log(questionPaper);
-    console.log(selectedQuestionPaper);
-    if (selectedQuestionPaper) {
-      selectedQuestionPaper.questions.map((question) => {
-        question.steps.map((step) => {
-          setTotalScore((prev) => prev + step.totalMarks);
-        });
-      });
-    }
-  }, [questionPaper, currentSet]);
-
   //! Use Effect hooks
   //* get all the users(including trainers and trainees) present in the current course
   useEffect(() => {
@@ -217,7 +194,7 @@ function App() {
               currentUser={currentUser}
               currentSet={currentSet}
               trainerId={trainerId}
-              totalScore={totalScore}
+              questionPaper={questionPaper}
             />
           }
         />
