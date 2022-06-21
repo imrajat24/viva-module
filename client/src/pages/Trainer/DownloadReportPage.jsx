@@ -1,10 +1,10 @@
 import Header from "../../containers/Header";
 import DownloadReport from "../../containers/DownloadReports";
-const DownloadReportPage = () => {
+const DownloadReportPage = ({ users, courseId }) => {
   return (
     <div>
       <Header />
-      <DownloadReport />
+      <DownloadReport users={users} courseId={courseId} />
     </div>
   );
 };

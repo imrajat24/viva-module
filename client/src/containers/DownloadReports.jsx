@@ -1,52 +1,41 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+const DownloadReports = ({ courseId }) => {
+  const [userViva, setUserviva] = useState();
+  const [marks, setMarks] = useState([]);
+  let navigate = useNavigate();
 
-const DownloadReports = () => {
-  const [employees, SetEmployees] = useState([
-    {
-      name: "12345",
-      value: "rajat",
-      email: "rajat@spicejet.com",
-    },
-    {
-      name: "24312",
-      value: "kamlesh",
-      email: "kamlesh@spicejet.com",
-    },
-    {
-      name: "54372",
-      value: "binod",
-      email: "binod@spicejet.com",
-    },
-    {
-      name: "87654",
-      value: "rakesh",
-      email: "rakesh@spicejet.com",
-    },
-    {
-      name: "56431",
-      value: "gaurav",
-      email: "gaurav@spicejet.com",
-    },
-    {
-      name: "45361",
-      value: "bhappa",
-      email: "bhappa@spicejet.com",
-    },
-    {
-      name: "75132",
-      value: "prabhakar",
-      email: "prabhakar@spicejet.com",
-    },
-    {
-      name: "87654",
-      value: "bhappi",
-      email: "bhappi@spicejet.com",
-    },
-  ]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/viva/${courseId}`)
+      .then((data) => {
+        setUserviva(data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-  return (
+  useEffect(() => {
+    if (userViva) {
+      let score;
+      let temp = [];
+      userViva.map((user) => {
+        score = 0;
+        user.answerSheet.answers.map((answer) => {
+          answer.steps.map((step) => {
+            score += step.givenMarks;
+          });
+        });
+        temp.push(score);
+      });
+      setMarks(temp);
+    }
+  }, [userViva]);
+
+  return userViva ? (
     <div className="trainer1 row">
       <div className="createSetheading">
         <h2>Download Reports</h2>
@@ -61,56 +50,58 @@ const DownloadReports = () => {
           <thead>
             <tr>
               <th>Employee Code</th>
-              <th>name</th>
               <th>viva status</th>
+              <th>set number</th>
               <th>marks</th>
               <th>download report</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>user 1</td>
-              <td> test 1</td>
-              <td>Complete</td>
-              <td>20</td>
-              <td>
-                <button className="btn btn-light btn-report">download</button>
-              </td>
-            </tr>
-            <tr>
-              <td>user 2</td>
-              <td>test 2</td>
-              <td>Complete</td>
-              <td>17</td>
-              <td>
-                <button className="btn btn-light btn-report">download</button>
-              </td>
-            </tr>
-            <tr>
-              <td>user 3</td>
-              <td>test 3</td>
-              <td>Incomplete</td>
-              <td>NA</td>
-              <td>na </td>
-            </tr>
-            <tr>
-              <td>user 4</td>
-              <td>test 4</td>
-              <td>complete</td>
-              <td>15</td>
-              <td>
-                <button className="btn btn-light btn-report">download</button>
-              </td>
-            </tr>
-            <tr>
-              <td>user 5</td>
-              <td>test 5</td>
-              <td>incomplete</td>
-              <td>Na</td>
-              <td>na</td>
-            </tr>
+            {userViva.map((user, index) => {
+              return (
+                <tr key={user.traineeId}>
+                  <td>{user.traineeId}</td>
+                  <td>
+                    {user.status === 2
+                      ? "acknowledgment pending"
+                      : user.status === 3
+                      ? "completed"
+                      : null}
+                  </td>
+                  <td> {user.answerSheet.set}</td>
+                  <td>{marks[index]}</td>
+                  <td>
+                    {user.status === 2 ? (
+                      "Pending"
+                    ) : user.status === 3 ? (
+                      <button className="btn btn-light btn-report">
+                        download
+                      </button>
+                    ) : null}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
+        <div className="downloadReport-btn">
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Take Next Viva
+          </button>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div>
+      <div className="trainer1 row">
+        <div className="createSetheading">
+          <h2>No Viva's taken</h2>
+        </div>
       </div>
     </div>
   );

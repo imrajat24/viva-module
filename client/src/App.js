@@ -11,17 +11,18 @@ function App() {
   // !-------------------------------------------------------------------------------------------------------------------------------
   // ? Functions and methods required for the LMS
   //! getting the course id from mooddle (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
-  const courseId = 546;
+  const courseId = 330;
 
   //! getting the trainerid and trainer name from the system (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const trainerId = "12345";
-  const traineeId = "bhavya";
+  const traineeId = "testuser";
 
   //! getting the admin token for API access
   const token = process.env.REACT_APP_ADMIN_TOKEN;
 
   //! to get the role of the user accessing the activity (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const role = "teacher";
+  // const role = "student";
   // useEffect(() => {
   //   axios
   //     .get(
@@ -171,7 +172,11 @@ function App() {
           />
         )}
         <Route path="/createSet" exact element={<CreateSetPage />} />
-        <Route path="/downloadReport" exact element={<DownloadReportPage />} />
+        <Route
+          path="/downloadReport"
+          exact
+          element={<DownloadReportPage users={users} courseId={courseId} />}
+        />
         <Route
           path="/viva"
           exact

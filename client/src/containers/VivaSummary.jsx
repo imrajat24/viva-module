@@ -88,7 +88,7 @@ const VivaSummary = ({
           </div>
         </div>
         <div className="viva_btn">
-          <Link to="/trainee">
+          <Link to="/downloadReport">
             <button className="btn btn-primary">Complete Viva</button>
           </Link>
         </div>

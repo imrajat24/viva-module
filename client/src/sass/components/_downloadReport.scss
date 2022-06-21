@@ -1,5 +1,6 @@
 .table-contain {
   overflow-x: auto;
+  text-align: center;
   .searchContainer {
     margin: 0 auto;
     width: 30%;
@@ -69,4 +70,8 @@
       }
     }
   }
+}
+
+.downloadReport-btn {
+  margin-top: 2rem;
 }
