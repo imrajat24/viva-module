@@ -9,6 +9,7 @@ const DownloadReports = ({ courseId }) => {
   const [marks, setMarks] = useState([]);
   let navigate = useNavigate();
 
+  // * function to get the viva of the users
   useEffect(() => {
     axios
       .get(`http://localhost:8080/viva/${courseId}`)
@@ -18,6 +19,7 @@ const DownloadReports = ({ courseId }) => {
       .catch((err) => console.log(err));
   }, []);
 
+  // * function to get the marks scored by the users in the viva
   useEffect(() => {
     if (userViva) {
       let score;
@@ -35,6 +37,16 @@ const DownloadReports = ({ courseId }) => {
     }
   }, [userViva]);
 
+  // * function to get the filtered users from the list of all users
+
+  const filterData = (e) => {
+    let temp = [];
+    if (e.target.value != "") {
+      temp = userViva.filter((user) => user.traineeId.includes(e.target.value));
+      setUserviva(temp);
+    }
+  };
+
   return userViva ? (
     <div className="trainer1 row">
       <div className="createSetheading">
@@ -43,8 +55,15 @@ const DownloadReports = ({ courseId }) => {
 
       <div className="createSet_contain--set trainer2 table-contain">
         <div className="createSet-inputs searchContainer">
-          <input type="text" placeholder="Search Emp Code" />
+          <input
+            type="text"
+            placeholder="Search Emp Code"
+            onChange={filterData}
+          />
           <FontAwesomeIcon icon={faSearch} />
+          {/* <button className="btn btn-primary" onClick={searchUser}>
+            search
+          </button> */}
         </div>
         <table className="table ques_body">
           <thead>

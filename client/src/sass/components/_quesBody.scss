@@ -4,27 +4,85 @@
   border-radius: 1.6rem;
   margin-bottom: 4rem;
 
-  &-ques,
-  &-answer {
+  &-ques {
+    margin-bottom: 2rem;
     display: flex;
     justify-content: space-between;
-  }
-  &-ques {
-    margin-bottom: 3rem;
+    align-items: center;
     .ques,
     .marks {
       font-size: 1.8rem;
       font-weight: 500;
     }
+    .ques {
+      width: 80%;
+      text-align: left;
+      input {
+        width: 90%;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.3rem;
+        font-family: inherit;
+        background-color: transparent;
+        font-size: 1.8rem;
+        text-align: left;
+        &::placeholder {
+          font-size: 1.4rem;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+    }
   }
-  &-answer {
+  &-answers {
     margin-bottom: 1rem;
-    .ans,
-    .marks {
-      font-size: 1.6rem;
+
+    .answer {
+      display: flex;
+      justify-content: space-between;
+      input {
+        border: none;
+        padding: 0.5rem 0 0 2rem;
+        border-radius: 0.3rem;
+        font-family: inherit;
+        text-align: left;
+        font-size: 1.4rem;
+        background: transparent;
+        &:first-of-type {
+          width: 50%;
+        }
+        &:last-of-type {
+          text-align: right;
+          width: 20%;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .answer-btns {
+      button {
+        &:first-child {
+          margin-right: 2rem;
+        }
+      }
+      // margin-right: 2rem;
+    }
+  }
+  // ! for the viva component (answersheet)
+  &-answerss {
+    display: flex;
+    justify-content: space-between;
+    p {
+      font-size: 1.4rem;
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
     }
   }
   &-btns {
+    margin-top: 4rem;
     button {
       margin-right: 2rem;
       @include respond(tab-pot) {
@@ -35,4 +93,16 @@
       }
     }
   }
+}
+
+// ! css to remove the top and bottom arrow of the number input
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+[type="number"] {
+  // /* Firefox */
+
+  -moz-appearance: textfield;
 }

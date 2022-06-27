@@ -11,11 +11,11 @@ function App() {
   // !-------------------------------------------------------------------------------------------------------------------------------
   // ? Functions and methods required for the LMS
   //! getting the course id from mooddle (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
-  const courseId = 330;
+  const courseId = 546;
 
   //! getting the trainerid and trainer name from the system (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const trainerId = "12345";
-  const traineeId = "testuser";
+  const traineeId = "bhavya";
 
   //! getting the admin token for API access
   const token = process.env.REACT_APP_ADMIN_TOKEN;
@@ -117,6 +117,7 @@ function App() {
 
   // ! Functions and API calls
 
+  // * function to get the question papers present in a particular course id..
   function getQuestionPaper() {
     axios
       .get(`http://localhost:8080/questionpaper/${courseId}`)
@@ -171,7 +172,13 @@ function App() {
             }
           />
         )}
-        <Route path="/createSet" exact element={<CreateSetPage />} />
+        <Route
+          path="/createSet"
+          exact
+          element={
+            <CreateSetPage questionPaper={questionPaper} courseId={courseId} />
+          }
+        />
         <Route
           path="/downloadReport"
           exact

@@ -27,7 +27,7 @@ const VivaQuesBody = ({
             temp1.push(temp2);
 
             return (
-              <div className="ques_body-answer" key={uuidv4()}>
+              <div className="ques_body-answerss" key={uuidv4()}>
                 <p className="ans">{step.description}</p>
                 <div className="viva-quesBody-answer-step">
                   <img
