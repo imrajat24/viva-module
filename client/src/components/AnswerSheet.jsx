@@ -79,7 +79,7 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
     <div>
       <Header />
       {userAnswer ? (
-        <div id="answer-sheet" className="trainer1 row">
+        <div className="trainer1 row" id="answer-sheet">
           <div className="viva_heading">
             <h3>
               Trainer Id: <span>{trainerId}</span>

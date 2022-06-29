@@ -17,6 +17,7 @@ const Trainee1 = ({ status, setStatus, trainerId, traineeId, courseId }) => {
   const [viva, setViva] = useState();
   const [marks, setMarks] = useState();
   const [totalmarks, setTotalmarks] = useState();
+  let currentTime;
 
   // !-------------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +73,11 @@ const Trainee1 = ({ status, setStatus, trainerId, traineeId, courseId }) => {
           console.log(err);
         });
     }
+
+    // * function to get the current date and time
+    const getCurrentTime = () => {
+      currentTime = new Date().toLocaleString();
+    };
   };
 
   // * method to get the currrent date
@@ -117,9 +123,14 @@ const Trainee1 = ({ status, setStatus, trainerId, traineeId, courseId }) => {
             </div>
           </>
         ) : (
-          <p className="status_para">
-            Thanks for the acknowledgement. You can now exit the activity.
-          </p>
+          <div>
+            <p className="status_para">
+              Thanks for the acknowledgement. You can now exit the activity.
+            </p>
+            <p className="status_para">
+              Date and Time of Acknowledgement: <b>{currentTime} </b>
+            </p>
+          </div>
         )}
       </div>
     </div>

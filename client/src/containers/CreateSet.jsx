@@ -80,7 +80,7 @@ const CreateSet = ({ questionPaper, courseId }) => {
       </div>
 
       {!isPaper ? (
-        <div className="createSet_contain" key={uuidv4()}>
+        <div className="createSet_contain">
           <div className="createSetheading">
             <h2>create a new set</h2>
           </div>
@@ -88,9 +88,14 @@ const CreateSet = ({ questionPaper, courseId }) => {
             <div className="createSet-inputs">
               <input
                 type="text"
-                defaultValue={
+                placeholder={
                   quesPaper.questions[0].questionStatement === ""
-                    ? "Set Name"
+                    ? "Set Number"
+                    : quesPaper.set
+                }
+                value={
+                  quesPaper.questions[0].questionStatement === ""
+                    ? null
                     : quesPaper.set
                 }
                 onChange={(e) =>
@@ -99,9 +104,14 @@ const CreateSet = ({ questionPaper, courseId }) => {
               />
               <input
                 type="text"
-                defaultValue={
+                placeholder={
                   quesPaper.questions[0].questionStatement === ""
-                    ? "Type of Training"
+                    ? "Training Type"
+                    : quesPaper.set
+                }
+                value={
+                  quesPaper.questions[0].questionStatement === ""
+                    ? null
                     : quesPaper.trainingType
                 }
                 onChange={(e) => updateData(quesPaper.set, e.target.value)}

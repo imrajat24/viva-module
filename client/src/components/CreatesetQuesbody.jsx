@@ -59,17 +59,17 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
 
   return (
     <div className="ques_body">
-      <div className="ques_body-ques">
+      <div className="ques_body-ques" key={quesNum - 1}>
         <div className="ques">
           <span> {quesNum}</span>
           <input
             type="text"
-            defaultValue={
+            placeholder={
               x.questionStatement === ""
                 ? "Enter Question Statement"
                 : x.questionStatement
             }
-            key={uuidv4()}
+            value={x.questionStatement === "" ? null : x.questionStatement}
             ref={getQuesRef}
             onChange={(e) => updateQues(quesNum - 1, e.target.value)}
           />
@@ -81,12 +81,12 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
           <div className="answer">
             <input
               type="text"
-              defaultValue={
+              placeholder={
                 step.description === ""
                   ? `Enter Step-${index + 1}`
-                  : step.description
+                  : x.questionStatement
               }
-              key={uuidv4()}
+              value={step.description === "" ? null : step.description}
               className="ans"
               onChange={(e) =>
                 updateStep(
@@ -98,11 +98,10 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
             />
             <input
               type="number"
-              placeholder="Enter Marks"
-              defaultValue={
+              placeholder={
                 step.totalMarks === 0 ? "Enter Marks" : step.totalMarks
               }
-              key={uuidv4()}
+              value={step.totalMarks === 0 ? null : step.totalMarks}
               className="marks"
               onChange={(e) => {
                 updateStep(
