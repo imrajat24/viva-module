@@ -8,12 +8,13 @@ const DownloadReports = ({ courseId, setGetuseranswer }) => {
   const [userViva, setUserviva] = useState();
   const [marks, setMarks] = useState([]);
   let navigate = useNavigate();
-
+  const [userVivaCopy, setUservivaCopy] = useState();
   // * function to get the viva of the users
   useEffect(() => {
     axios
       .get(`http://localhost:8080/viva/${courseId}`)
       .then((data) => {
+        setUservivaCopy(data.data);
         setUserviva(data.data);
       })
       .catch((err) => console.log(err));
@@ -22,8 +23,8 @@ const DownloadReports = ({ courseId, setGetuseranswer }) => {
   // * function to get the marks scored by the users in the viva
   useEffect(() => {
     if (userViva) {
-      let score;
       let temp = [];
+      let score;
       userViva.map((user) => {
         score = 0;
         user.answerSheet.answers.map((answer) => {
@@ -40,10 +41,14 @@ const DownloadReports = ({ courseId, setGetuseranswer }) => {
   // * function to get the filtered users from the list of all users
 
   const filterData = (e) => {
-    let temp = [];
-    if (e.target.value != "") {
-      temp = userViva.filter((user) => user.traineeId.includes(e.target.value));
-      setUserviva(temp);
+    let input = e.target.value;
+    let temp1 = [];
+    if (input !== "") {
+      temp1 = userViva.filter((user) => user.traineeId.includes(input));
+      setUserviva(temp1);
+    } else {
+      console.log(userVivaCopy);
+      setUserviva(userVivaCopy);
     }
   };
 
@@ -58,12 +63,9 @@ const DownloadReports = ({ courseId, setGetuseranswer }) => {
           <input
             type="text"
             placeholder="Search Emp Code"
-            onChange={filterData}
+            onChange={(e) => filterData(e)}
           />
           <FontAwesomeIcon icon={faSearch} />
-          {/* <button className="btn btn-primary" onClick={searchUser}>
-            search
-          </button> */}
         </div>
         <table className="table ques_body">
           <thead>
