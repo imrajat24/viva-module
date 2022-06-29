@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper }) => {
+const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
   // ! useeffects and functions
   const getQuesRef = useRef();
   const [quesMarks, setquesMarks] = useState(0);
@@ -63,7 +64,12 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper }) => {
           <span> {quesNum}</span>
           <input
             type="text"
-            placeholder="Enter Question Statement"
+            defaultValue={
+              x.questionStatement === ""
+                ? "Enter Question Statement"
+                : x.questionStatement
+            }
+            key={uuidv4()}
             ref={getQuesRef}
             onChange={(e) => updateQues(quesNum - 1, e.target.value)}
           />
@@ -75,7 +81,12 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper }) => {
           <div className="answer">
             <input
               type="text"
-              placeholder={`Enter Step-${index + 1}`}
+              defaultValue={
+                step.description === ""
+                  ? `Enter Step-${index + 1}`
+                  : step.description
+              }
+              key={uuidv4()}
               className="ans"
               onChange={(e) =>
                 updateStep(
@@ -88,6 +99,10 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper }) => {
             <input
               type="number"
               placeholder="Enter Marks"
+              defaultValue={
+                step.totalMarks === 0 ? "Enter Marks" : step.totalMarks
+              }
+              key={uuidv4()}
               className="marks"
               onChange={(e) => {
                 updateStep(
@@ -134,11 +149,11 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper }) => {
 
 export default CreatesetQuesbody;
 
-const Step = () => {
-  return (
-    <div className="ques_body-answer">
-      <p className="ans">Step 1</p>
-      <input type="number" placeholder="Marks" />
-    </div>
-  );
-};
+// const Step = () => {
+//   return (
+//     <div className="ques_body-answer">
+//       <p className="ans">Step 1</p>
+//       <input type="number" placeholder="Marks" />
+//     </div>
+//   );
+// };

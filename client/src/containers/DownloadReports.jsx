@@ -4,7 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const DownloadReports = ({ courseId }) => {
+const DownloadReports = ({ courseId, setGetuseranswer }) => {
   const [userViva, setUserviva] = useState();
   const [marks, setMarks] = useState([]);
   let navigate = useNavigate();
@@ -72,7 +72,7 @@ const DownloadReports = ({ courseId }) => {
               <th>viva status</th>
               <th>set number</th>
               <th>marks</th>
-              <th>download report</th>
+              <th>View report</th>
             </tr>
           </thead>
           <tbody>
@@ -93,8 +93,14 @@ const DownloadReports = ({ courseId }) => {
                     {user.status === 2 ? (
                       "Pending"
                     ) : user.status === 3 ? (
-                      <button className="btn btn-light btn-report">
-                        download
+                      <button
+                        className="btn btn-light btn-report"
+                        onClick={(e) => {
+                          setGetuseranswer(user.traineeId);
+                          navigate("/answerSheet");
+                        }}
+                      >
+                        View
                       </button>
                     ) : null}
                   </td>

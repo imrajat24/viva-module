@@ -1,12 +1,14 @@
 import CopySetScroll from "../components/CopySetScroll";
 import QuesBody from "../components/CreatesetQuesbody";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 const CreateSet = ({ questionPaper, courseId }) => {
   const [isPaper, setIsPaper] = useState(false);
+  const [tempKey, setTempKey] = useState(1);
   const navigate = useNavigate();
-  // ! use effect and functions
+  // ! for creating a new question paper
   const [quesPaper, setQuesPaper] = useState({
     courseId: courseId.toString(),
     set: "",
@@ -53,6 +55,15 @@ const CreateSet = ({ questionPaper, courseId }) => {
       .then(() => setIsPaper(true))
       .catch((error) => console.log(error));
   };
+
+  // !for copying the existing set
+  // * function to get the set number clicked by the trainer...
+  const getSet = (x) => {
+    const temp = questionPaper.filter((paper) => paper.set === x);
+    setQuesPaper(temp[0]);
+    console.log(temp[0]);
+  };
+
   return (
     <div className="trainer1 row">
       <div className="copyset-contain">
@@ -60,7 +71,7 @@ const CreateSet = ({ questionPaper, courseId }) => {
           <h2>use existing set</h2>
         </div>
         <div className="copyset-contain_card">
-          <CopySetScroll questionPaper={questionPaper} />
+          <CopySetScroll questionPaper={questionPaper} getSet={getSet} />
         </div>
       </div>
 
@@ -69,7 +80,7 @@ const CreateSet = ({ questionPaper, courseId }) => {
       </div>
 
       {!isPaper ? (
-        <div className="createSet_contain">
+        <div className="createSet_contain" key={uuidv4()}>
           <div className="createSetheading">
             <h2>create a new set</h2>
           </div>
@@ -77,14 +88,22 @@ const CreateSet = ({ questionPaper, courseId }) => {
             <div className="createSet-inputs">
               <input
                 type="text"
-                placeholder="Set Name"
+                defaultValue={
+                  quesPaper.questions[0].questionStatement === ""
+                    ? "Set Name"
+                    : quesPaper.set
+                }
                 onChange={(e) =>
                   updateData(e.target.value, quesPaper.trainingType)
                 }
               />
               <input
                 type="text"
-                placeholder="Type of training"
+                defaultValue={
+                  quesPaper.questions[0].questionStatement === ""
+                    ? "Type of Training"
+                    : quesPaper.trainingType
+                }
                 onChange={(e) => updateData(quesPaper.set, e.target.value)}
               />
             </div>
@@ -94,6 +113,7 @@ const CreateSet = ({ questionPaper, courseId }) => {
                 quesNum={i + 1}
                 quesPaper={quesPaper}
                 setQuesPaper={setQuesPaper}
+                x={x}
               />
             ))}
             <div className="createSet_closing-btns">

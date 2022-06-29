@@ -12,6 +12,8 @@
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "fuse.js": "^6.6.2",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-glider": "^3.1.0",

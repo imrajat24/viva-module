@@ -8,7 +8,7 @@ const VivaPage = ({
   courseId,
 }) => {
   return (
-    <div>
+    <div id="viva-page">
       <Header />
       <Viva
         currentUser={currentUser}

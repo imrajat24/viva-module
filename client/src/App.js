@@ -4,6 +4,7 @@ import DownloadReportPage from "./pages/Trainer/DownloadReportPage";
 import VivaPage from "./pages/Trainer/VivaPage";
 import VivaSummaryPage from "./pages/Trainer/VivaSummaryPage";
 import TraineePage from "./pages/Trainee/TraineePage";
+import AnswerSheet from "./components/AnswerSheet";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -15,7 +16,7 @@ function App() {
 
   //! getting the trainerid and trainer name from the system (proper lms wala part could be done in future, abhi k liye we have hardcoded it...)
   const trainerId = "12345";
-  const traineeId = "bhavya";
+  const traineeId = "testuser";
 
   //! getting the admin token for API access
   const token = process.env.REACT_APP_ADMIN_TOKEN;
@@ -62,6 +63,14 @@ function App() {
         getRoles(data.data.users);
       });
   }
+
+  // !-------------------------------------------------------------------------------------------------------------------------------
+
+  // ? AnswerSheet Component
+
+  const [getUserAnswer, setGetuseranswer] = useState();
+
+  // !-------------------------------------------------------------------------------------------------------------------------------
 
   function getRoles(users) {
     //* getting the roles from the api and then updating the array of users with their role in the specified course
@@ -182,7 +191,12 @@ function App() {
         <Route
           path="/downloadReport"
           exact
-          element={<DownloadReportPage users={users} courseId={courseId} />}
+          element={
+            <DownloadReportPage
+              courseId={courseId}
+              setGetuseranswer={setGetuseranswer}
+            />
+          }
         />
         <Route
           path="/viva"
@@ -207,6 +221,17 @@ function App() {
               currentSet={currentSet}
               trainerId={trainerId}
               questionPaper={questionPaper}
+            />
+          }
+        />
+        <Route
+          path="/answerSheet"
+          exact
+          element={
+            <AnswerSheet
+              getUserAnswer={getUserAnswer}
+              trainerId={trainerId}
+              courseId={courseId}
             />
           }
         />
