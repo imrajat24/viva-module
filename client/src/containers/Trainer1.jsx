@@ -31,9 +31,8 @@ const Trainer1 = ({
     else {
       // * creating the viva for the user of which details are selected
       axios
-        .post("http://localhost:8080/viva", {
+        .post("https://viva-module.herokuapp.com/viva", {
           courseId: courseId.toString(),
-          trainerId: trainerId.toString(),
           traineeId: currentUser.name.toString(),
           status: 1,
         })

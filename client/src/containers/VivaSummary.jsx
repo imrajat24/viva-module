@@ -11,10 +11,12 @@ const VivaSummary = ({
 }) => {
   const [score, setScore] = useState(0);
   const navigate = useNavigate();
-  // !useeffects and functions
+  const [ansUser, setAnsuser] = useState();
 
   // * state to store the total marks of the selected question paper
   const [totalScore, setTotalScore] = useState(0);
+
+  // !useeffects and functions
 
   useEffect(() => {
     if (currentUser) {
@@ -33,25 +35,24 @@ const VivaSummary = ({
       }
 
       console.log(courseId, trainerId, currentUser.name);
+
       // * get the score from the answersheet
-      setTimeout(() => {
-        axios
-          .get(
-            `http://localhost:8080/answersheet/${courseId}/${trainerId}/${currentUser.name}`
-          )
-          .then((data) => {
-            data.data.answers.map((answer) => {
-              answer.steps.map((step) => {
-                setScore((prev) => prev + step.givenMarks);
-              });
+      axios
+        .get(
+          `https://viva-module.herokuapp.com/answersheet/${courseId}/${currentUser.name}`
+        )
+        .then((data) => {
+          data.data.answers.map((answer) => {
+            answer.steps.map((step) => {
+              setScore((prev) => prev + step.givenMarks);
             });
-          })
-          .catch((err) => {
-            console.log(err);
           });
-      }, 100);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else navigate("/");
-  }, []);
+  }, [ansUser]);
 
   return currentUser ? (
     <div className="trainer1 row">

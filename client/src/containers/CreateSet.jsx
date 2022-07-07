@@ -1,12 +1,10 @@
 import CopySetScroll from "../components/CopySetScroll";
 import QuesBody from "../components/CreatesetQuesbody";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 const CreateSet = ({ questionPaper, courseId }) => {
   const [isPaper, setIsPaper] = useState(false);
-  const [tempKey, setTempKey] = useState(1);
   const navigate = useNavigate();
   // ! for creating a new question paper
   const [quesPaper, setQuesPaper] = useState({
@@ -51,7 +49,7 @@ const CreateSet = ({ questionPaper, courseId }) => {
   // * function to add the set in the DB
   const addSet = () => {
     axios
-      .post("http://localhost:8080/questionpaper/", quesPaper)
+      .post("https://viva-module.herokuapp.com/questionpaper/", quesPaper)
       .then(() => setIsPaper(true))
       .catch((error) => console.log(error));
   };
@@ -61,7 +59,6 @@ const CreateSet = ({ questionPaper, courseId }) => {
   const getSet = (x) => {
     const temp = questionPaper.filter((paper) => paper.set === x);
     setQuesPaper(temp[0]);
-    console.log(temp[0]);
   };
 
   return (
@@ -95,7 +92,7 @@ const CreateSet = ({ questionPaper, courseId }) => {
                 }
                 value={
                   quesPaper.questions[0].questionStatement === ""
-                    ? null
+                    ? undefined
                     : quesPaper.set
                 }
                 onChange={(e) =>
@@ -107,11 +104,11 @@ const CreateSet = ({ questionPaper, courseId }) => {
                 placeholder={
                   quesPaper.questions[0].questionStatement === ""
                     ? "Training Type"
-                    : quesPaper.set
+                    : quesPaper.trainingType
                 }
                 value={
                   quesPaper.questions[0].questionStatement === ""
-                    ? null
+                    ? undefined
                     : quesPaper.trainingType
                 }
                 onChange={(e) => updateData(quesPaper.set, e.target.value)}
@@ -142,7 +139,12 @@ const CreateSet = ({ questionPaper, courseId }) => {
             You have successfully created the question paper. Click continue to
             go to the homepage.
           </p>
-          <button className="btn btn-primary" onClick={() => navigate("/")}>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Continue
           </button>
         </div>

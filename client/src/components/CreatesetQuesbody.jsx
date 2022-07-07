@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
   // ! useeffects and functions
@@ -44,10 +43,15 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
   };
 
   // *function to calculate the total marks of the question by adding the marks of the all steps
-  const addMarks = (x) => {
-    let temp = quesMarks;
-    temp += x;
-    setquesMarks(temp);
+
+  const totalMarks = (quesNum, quesPaper) => {
+    let totalMarks = 0;
+    if (quesPaper) {
+      quesPaper.questions[quesNum - 1].steps.map((step) => {
+        totalMarks += step.totalMarks;
+      });
+    }
+    return totalMarks;
   };
 
   // *function to delete the ques from the UI
@@ -69,12 +73,12 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
                 ? "Enter Question Statement"
                 : x.questionStatement
             }
-            value={x.questionStatement === "" ? null : x.questionStatement}
+            value={x.questionStatement === "" ? undefined : x.questionStatement}
             ref={getQuesRef}
             onChange={(e) => updateQues(quesNum - 1, e.target.value)}
           />
         </div>
-        <p className="marks">{quesMarks}</p>
+        <p className="marks">{totalMarks(quesNum, quesPaper)}</p>
       </div>
       {quesPaper.questions[quesNum - 1].steps.map((step, index) => (
         <div className="ques_body-answers " key={index}>
@@ -86,7 +90,7 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
                   ? `Enter Step-${index + 1}`
                   : x.questionStatement
               }
-              value={step.description === "" ? null : step.description}
+              value={step.description === undefined ? null : step.description}
               className="ans"
               onChange={(e) =>
                 updateStep(
@@ -101,7 +105,7 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
               placeholder={
                 step.totalMarks === 0 ? "Enter Marks" : step.totalMarks
               }
-              value={step.totalMarks === 0 ? null : step.totalMarks}
+              value={step.totalMarks === 0 ? undefined : step.totalMarks}
               className="marks"
               onChange={(e) => {
                 updateStep(
@@ -109,9 +113,6 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
                   quesPaper.questions[quesNum - 1].steps[index].description,
                   parseInt(e.target.value)
                 );
-              }}
-              onBlur={(e) => {
-                if (e.target.value !== "") addMarks(parseInt(e.target.value));
               }}
             />
           </div>

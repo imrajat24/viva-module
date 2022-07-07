@@ -4,7 +4,7 @@ import rightSelected from "../images/tick.png";
 import right from "../images/tick-select.png";
 import { useEffect } from "react";
 import axios from "axios";
-const Trainee1 = ({ status, setStatus, trainerId, traineeId, courseId }) => {
+const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
   // !-------------------------------------------------------------------------------------------------------------------------------
   // ? Functions and methods required for the LMS
 
@@ -26,7 +26,7 @@ const Trainee1 = ({ status, setStatus, trainerId, traineeId, courseId }) => {
   // * function to get the status of the current user
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/viva/${courseId}/${trainerId}/${traineeId}`)
+      .get(`https://viva-module.herokuapp.com/viva/${courseId}/${traineeId}`)
       .then((data) => {
         setViva(data.data);
         setStatus(data.data.status);
@@ -63,9 +63,8 @@ const Trainee1 = ({ status, setStatus, trainerId, traineeId, courseId }) => {
     if (tick) {
       setStatus(3);
       axios
-        .put("http://localhost:8080/viva", {
+        .put("https://viva-module.herokuapp.com/viva", {
           courseId: courseId.toString(),
-          trainerId: trainerId.toString(),
           traineeId: traineeId.toString(),
           status: 3,
         })

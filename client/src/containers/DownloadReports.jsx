@@ -12,10 +12,11 @@ const DownloadReports = ({ courseId, setGetuseranswer }) => {
   // * function to get the viva of the users
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/viva/${courseId}`)
+      .get(`https://viva-module.herokuapp.com/viva/${courseId}`)
       .then((data) => {
         setUservivaCopy(data.data);
         setUserviva(data.data);
+        console.log(data.data);
       })
       .catch((err) => console.log(err));
   }, []);

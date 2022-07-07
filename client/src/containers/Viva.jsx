@@ -1,5 +1,4 @@
 import VivaQuesBody from "../containers/VivaQuesBody";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -59,13 +58,14 @@ const Viva = ({
   // //* function to generate the answer sheet of the seleceted user when the continue button is pressed...
   const generateAnswersheet = () => {
     axios
-      .post("http://localhost:8080/answersheet", {
+      .post("https://viva-module.herokuapp.com/answersheet", {
         courseId: courseId.toString(),
         set: currentSet.toString(),
         trainerId: trainerId.toString(),
         traineeId: currentUser.name.toString(),
         answers: answerObject,
       })
+      .then((data) => navigate("/summary"))
       .catch((err) => console.log(err.response));
   };
 
@@ -101,9 +101,9 @@ const Viva = ({
           );
         })}
         <div className="viva_btn">
-          <Link to="/summary" onClick={generateAnswersheet}>
-            <button className="btn btn-primary">continue</button>
-          </Link>
+          <button className="btn btn-primary" onClick={generateAnswersheet}>
+            continue
+          </button>
         </div>
       </div>
     </div>

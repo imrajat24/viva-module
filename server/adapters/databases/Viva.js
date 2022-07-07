@@ -60,14 +60,9 @@ const getByCourseIdTrainerId = async (courseId, trainerId) => {
   }
 };
 
-const getByCourseIdTrainerIdTraineeId = async (
-  courseId,
-  trainerId,
-  traineeId
-) => {
+const getByCourseIdTraineeId = async (courseId, traineeId) => {
   const filter = {
     courseId,
-    trainerId,
     traineeId,
   };
   try {
@@ -130,7 +125,7 @@ const update = async (viva) => {
 module.exports = {
   getByCourseId,
   getByCourseIdTrainerId,
-  getByCourseIdTrainerIdTraineeId,
+  getByCourseIdTraineeId,
   write,
   update,
 };

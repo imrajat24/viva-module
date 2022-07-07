@@ -6,16 +6,20 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
-const DB_HOSTNAME = "0.0.0.0";
-const DB_NAME = "spicejet";
+require("dotenv").config();
+// const DB_HOSTNAME = "0.0.0.0";
+// const DB_NAME = "spicejet";
 mongoose
-  .connect("mongodb://" + DB_HOSTNAME + "/" + DB_NAME)
+  // .connect("mongodb://" + DB_HOSTNAME + "/" + DB_NAME)
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@viva.kkyb8.mongodb.net/spicejet`
+  )
   .then(() => {
     console.log("Connected to database");
   })
   .catch((error) => {
     console.log("Failed to connect to the database... " + error);
+    console.log(process.env.DB_USER, process.env.DB_PASS);
   });
 
 const app = express();
@@ -27,4 +31,6 @@ app.use("/viva", vivaRouter);
 app.use("/questionpaper", questionPaperRouter);
 app.use("/answersheet", answerSheetRouter);
 
-app.listen("8080", () => console.log("Listening on http://localhost:8080"));
+app.listen(process.env.PORT || "8080", () =>
+  console.log("Listening on http://localhost:8080")
+);

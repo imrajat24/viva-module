@@ -9,8 +9,7 @@ const CopySetScroll = ({ questionPaper, getSet }) => {
     });
     setSets(temp);
   }, [questionPaper]);
-
-  return (
+  return questionPaper.length ? (
     <>
       {sets?.map((set, index) => {
         return (
@@ -26,6 +25,8 @@ const CopySetScroll = ({ questionPaper, getSet }) => {
         );
       })}
     </>
+  ) : (
+    <h2 className="noSet">No Sets Found</h2>
   );
 };
 

@@ -13,14 +13,13 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/viva/${courseId}/${trainerId}/${getUserAnswer}`
+        `https://viva-module.herokuapp.com/viva/${courseId}/${getUserAnswer}`
       )
       .then((data) => {
         setUseranswer(data.data);
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.data.message);
         if (err.response.data.message === "Entity does not exist");
       });
   }, [getUserAnswer]);
@@ -48,20 +47,12 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
   // ! take screenshot anf convert it to pdf
   const generateAnswersheet = () => {
     let id = document.getElementById("answer-sheet");
-    let html = document.getElementsByTagName("HTML")[0];
-    let body = document.getElementsByTagName("BODY")[0];
-    let htmlWidth = html.clientWidth;
-    let bodyWidth = body.clientWidth;
-    let newWidth = id.scrollWidth - id.clientWidth;
-    if (newWidth > id.clientWidth) {
-      htmlWidth += newWidth;
-      bodyWidth += newWidth;
-    }
-    html.style.width = htmlWidth + "px";
-    body.style.width = bodyWidth + "px";
     html2canvas(id, {
       logging: true,
       letterRendering: 1,
+      allowTaint: true,
+      scrollX: 0,
+      scrollY: 0,
       useCORS: true,
     })
       .then((canvas) => {
@@ -70,16 +61,17 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
         const imgData = canvas.toDataURL("img/png", "1.0");
         const pdf = new jsPdf("p", "mm", "a4");
         pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
         pdf.save("test.pdf");
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div>
+    <div id="answer-sheet">
       <Header />
       {userAnswer ? (
-        <div className="trainer1 row" id="answer-sheet">
+        <div className="trainer1 row">
           <div className="viva_heading">
             <h3>
               Trainer Id: <span>{trainerId}</span>
