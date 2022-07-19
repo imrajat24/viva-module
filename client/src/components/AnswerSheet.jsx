@@ -47,31 +47,23 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
   // ! take screenshot anf convert it to pdf
   const generateAnswersheet = () => {
     let id = document.getElementById("answer-sheet");
-    html2canvas(id, {
-      logging: true,
-      letterRendering: 1,
-      allowTaint: true,
-      scrollX: 0,
-      scrollY: 0,
-      useCORS: true,
-    })
+    html2canvas(id)
       .then((canvas) => {
         const imgWidth = 208;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         const imgData = canvas.toDataURL("img/png", "1.0");
-        const pdf = new jsPdf("p", "mm", "a4");
+        const pdf = new jsPdf();
         pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-
         pdf.save("test.pdf");
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div id="answer-sheet">
+    <div>
       <Header />
       {userAnswer ? (
-        <div className="trainer1 row">
+        <div id="answer-sheet" className="trainer1 row">
           <div className="viva_heading">
             <h3>
               Trainer Id: <span>{trainerId}</span>

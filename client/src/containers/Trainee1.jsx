@@ -17,7 +17,7 @@ const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
   const [viva, setViva] = useState();
   const [marks, setMarks] = useState();
   const [totalmarks, setTotalmarks] = useState();
-  let currentTime;
+  let [currentTime, setCurrentTime] = useState();
 
   // !-------------------------------------------------------------------------------------------------------------------------------
 
@@ -62,6 +62,7 @@ const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
   const acknowledgeHandler = () => {
     if (tick) {
       setStatus(3);
+      setCurrentTime(new Date().toLocaleString());
       axios
         .put("https://viva-module.herokuapp.com/viva", {
           courseId: courseId.toString(),
@@ -74,9 +75,7 @@ const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
     }
 
     // * function to get the current date and time
-    const getCurrentTime = () => {
-      currentTime = new Date().toLocaleString();
-    };
+    const getCurrentTime = () => {};
   };
 
   // * method to get the currrent date

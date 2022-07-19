@@ -17,8 +17,8 @@ export function scormLogic() {
     console.log(url);
     scormId = parseInt(url.substr(url.indexOf("=") + 1, 3));
     console.log(scormId);
-    scorm.quit();
-    console.log("quit");
+    let quit = scorm.quit();
+    console.log(quit);
   } else {
     console.log("Could not connect to lms");
   }

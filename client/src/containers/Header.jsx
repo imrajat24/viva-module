@@ -1,4 +1,4 @@
-// import logo from "../images/logoWhite.png";
+import logo from "../images/logoWhite.png";
 import { Link } from "react-router-dom";
 const Header = () => {
   return (
@@ -7,8 +7,8 @@ const Header = () => {
         <div className="headerNav row">
           <div className="headerNav_logo">
             <Link to="/">
-              {/* <img src={logo} alt="spicelearn-logo" /> */}
-              <span>Image</span>
+              <img src={logo} alt="spicelearn-logo" />
+              {/* <span>Image</span> */}
             </Link>
           </div>
           <div className="headerNav_heading">

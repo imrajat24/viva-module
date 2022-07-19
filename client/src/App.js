@@ -21,7 +21,7 @@ function App() {
   const [role, setRole] = useState(null);
   const [courseId, setCourseId] = useState(546);
   const [traineeId, settraineeId] = useState("bhavya");
-  const [trainerId, settrainerId] = useState("12345");
+  const [trainerId, settrainerId] = useState("deptadmin_inf");
   console.log(courseId, userId);
   useEffect(() => {
     axios
@@ -51,16 +51,12 @@ function App() {
         .then((data) => {
           console.log(data.data);
           if (data.data.roles[0].shortname === "student") {
-            // traineeId = userId;
             settraineeId(userId);
             setRole("student");
-            // role = "student";
             console.log(role);
           } else {
-            // trainerId = userId;
             settrainerId(userId);
             setRole("teacher");
-            // role = "teacher";
             console.log(role);
           }
         })

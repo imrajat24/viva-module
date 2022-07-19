@@ -45,10 +45,9 @@ const DownloadReports = ({ courseId, setGetuseranswer }) => {
     let input = e.target.value;
     let temp1 = [];
     if (input !== "") {
-      temp1 = userViva.filter((user) => user.traineeId.includes(input));
+      temp1 = userVivaCopy.filter((user) => user.traineeId.includes(input));
       setUserviva(temp1);
     } else {
-      console.log(userVivaCopy);
       setUserviva(userVivaCopy);
     }
   };
