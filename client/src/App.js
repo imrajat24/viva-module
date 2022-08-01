@@ -250,7 +250,12 @@ function App() {
           path="/createSet"
           exact
           element={
-            <CreateSetPage questionPaper={questionPaper} courseId={courseId} />
+            <CreateSetPage
+              questionPaper={questionPaper}
+              setquestionPaper={setquestionPaper}
+              courseId={courseId}
+              token={token}
+            />
           }
         />
         <Route

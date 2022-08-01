@@ -74,7 +74,7 @@ const DownloadReports = ({ courseId, setGetuseranswer }) => {
               <th>viva status</th>
               <th>set number</th>
               <th>marks</th>
-              <th>View report</th>
+              <th>View/Edit report</th>
             </tr>
           </thead>
           <tbody>

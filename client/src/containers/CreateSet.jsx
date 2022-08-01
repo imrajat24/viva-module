@@ -2,9 +2,10 @@ import CopySetScroll from "../components/CopySetScroll";
 import QuesBody from "../components/CreatesetQuesbody";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-const CreateSet = ({ questionPaper, courseId }) => {
+import { useState, useEffect } from "react";
+const CreateSet = ({ questionPaper, setquestionPaper, courseId, token }) => {
   const [isPaper, setIsPaper] = useState(false);
+  const [copyCourseids, setCopycourseids] = useState();
   const navigate = useNavigate();
   // ! for creating a new question paper
   const [quesPaper, setQuesPaper] = useState({
@@ -56,10 +57,42 @@ const CreateSet = ({ questionPaper, courseId }) => {
 
   // !for copying the existing set
   // * function to get the set number clicked by the trainer...
-  const getSet = (x) => {
-    const temp = questionPaper.filter((paper) => paper.set === x);
+  const getSet = (set, id) => {
+    const temp = questionPaper.filter(
+      (paper) => paper.set === set && paper.courseId === id
+    );
     setQuesPaper(temp[0]);
   };
+
+  // * function to get the list of copy course id's
+  useEffect(() => {
+    axios
+      .get(
+        `https://spicelearnweb.xrcstaging.in/webservice/rest/server.php?wstoken=${token}&wsfunction=local_api_get_originalcourseid&moodlewsrestformat=json&courseid=${courseId}`
+      )
+      .then((res) => {
+        // console.log(res.data.courseids);
+        setCopycourseids(res.data.courseids);
+      });
+  }, []);
+
+  // *function to add questions of the copy question papers into the main question state
+  useEffect(() => {
+    copyCourseids?.map((id) => {
+      axios
+        .get(`https://viva-module.herokuapp.com/questionpaper/${id.id}`)
+        .then((res) => {
+          console.log(res.data);
+          const temp3 = [...questionPaper];
+          temp3.push(...res.data);
+          setquestionPaper(temp3);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  }, [copyCourseids]);
+  console.log(questionPaper);
 
   return (
     <div className="trainer1 row">
@@ -68,7 +101,11 @@ const CreateSet = ({ questionPaper, courseId }) => {
           <h2>use existing set</h2>
         </div>
         <div className="copyset-contain_card">
-          <CopySetScroll questionPaper={questionPaper} getSet={getSet} />
+          <CopySetScroll
+            questionPaper={questionPaper}
+            getSet={getSet}
+            courseId={courseId}
+          />
         </div>
       </div>
 

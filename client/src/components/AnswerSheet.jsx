@@ -5,10 +5,37 @@ import right from "../images/right.png";
 import rightSelected from "../images/right-selected.png";
 import html2canvas from "html2canvas";
 import jsPdf from "jspdf";
+import { useNavigate } from "react-router-dom";
 const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
   const [userAnswer, setUseranswer] = useState();
   const [remarks, setRemarks] = useState();
   const [scoredMarks, setScoredMarks] = useState();
+  const [updatedAnswers, setupdatedAnswers] = useState();
+  const [updatedRemarks, setupdatedRemarks] = useState([]);
+  const navigate = useNavigate();
+  // * variables to store the updted answer object so that it can be passed in the DB through API
+  const updatedAnswerObject = [];
+
+  useEffect(() => {
+    setupdatedAnswers(scoredMarks);
+    setupdatedRemarks(remarks);
+  }, [scoredMarks, remarks]);
+  // *function to get the updated marks
+  const setUpdatedQues = (index, ques) => {
+    let newAllQues = [];
+    console.log(ques);
+    newAllQues = [...updatedAnswers];
+    newAllQues[index] = ques;
+    setupdatedAnswers(newAllQues);
+  };
+
+  //* function to get the updated remarks
+  const getUpdatedRemarks = (index, remarksObject) => {
+    let newRemarks = [];
+    newRemarks = [...remarks];
+    newRemarks[index] = remarksObject;
+    setupdatedRemarks(newRemarks);
+  };
   // * function to get the status of the current user
   useEffect(() => {
     axios
@@ -59,10 +86,26 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
       .catch((err) => console.log(err));
   };
 
+  // ! function to update the answersheet in the db
+  // //* function to generate the answer sheet of the selected user when the continue button is pressed...
+  const updateAnswersheet = () => {
+    axios
+      .put("https://viva-module.herokuapp.com/answersheet", {
+        courseId: courseId.toString(),
+        set: userAnswer.answerSheet.set.toString(),
+        trainerId: trainerId.toString(),
+        traineeId: getUserAnswer.toString(),
+        answers: updatedAnswerObject,
+      })
+      .then((data) => navigate("/"))
+      .catch((err) => console.log(err.response));
+  };
+  console.log(updatedAnswerObject);
+
   return (
     <div>
       <Header />
-      {userAnswer ? (
+      {userAnswer && updatedRemarks ? (
         <div id="answer-sheet" className="trainer1 row">
           <div className="viva_heading">
             <h3>
@@ -74,6 +117,11 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
           </div>
           <div className="viva_contain trainer2">
             {userAnswer.questionPaper.questions.map((question, quesIndex) => {
+              let temp3 = {};
+              let temp1 = [];
+              temp3.steps = temp1;
+              temp3.remarks = updatedRemarks[quesIndex];
+              updatedAnswerObject.push(temp3);
               if (scoredMarks) {
                 return (
                   <AnsSheetQuesBody
@@ -82,12 +130,22 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
                     quesIndex={quesIndex}
                     remarks={remarks}
                     scoredMarks={scoredMarks}
+                    setUpdatedQues={setUpdatedQues}
+                    updatedAnswers={updatedAnswers}
+                    getUpdatedRemarks={getUpdatedRemarks}
+                    temp1={temp1}
                   />
                 );
               }
             })}
             <div className="viva_btn">
-              <button className="btn btn-primary" onClick={generateAnswersheet}>
+              <button className="btn btn-primary" onClick={updateAnswersheet}>
+                Update Answersheet
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={generateAnswersheet}
+              >
                 Download
               </button>
             </div>
@@ -99,28 +157,68 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
 };
 export default AnswerSheet;
 
-const AnsSheetQuesBody = ({ question, quesIndex, remarks, scoredMarks }) => {
+const AnsSheetQuesBody = ({
+  question,
+  quesIndex,
+  remarks,
+  scoredMarks,
+  setUpdatedQues,
+  updatedAnswers,
+  getUpdatedRemarks,
+  temp1,
+}) => {
+  const [quesTotal, setQuesTotal] = useState();
+  //! function to add the marks of each step
+  useEffect(() => {
+    const addMarks = () => {
+      let temp = 0;
+      question.steps?.map((step) => {
+        temp += step.totalMarks;
+      });
+      setQuesTotal(temp);
+    };
+    addMarks();
+  }, [question.steps]);
   return remarks ? (
     <div className="viva_ques">
       <div className="ques_body viva-quesBody">
         <div className="ques_body-ques">
           <p className="ques">{question.questionStatement}</p>
+          <span>{quesTotal}</span>
         </div>
 
         <div className="ques_body-answers">
           {question.steps?.map((step, stepIndex) => {
+            let temp2 = {};
+            temp2.description = step.description;
+            if (updatedAnswers) {
+              if (updatedAnswers[quesIndex][stepIndex])
+                temp2.givenMarks = step.totalMarks;
+              else temp2.givenMarks = 0;
+            }
+            temp1.push(temp2);
             return (
               <div className="ques_body-answerss" key={stepIndex}>
                 <p className="ans">{step.description}</p>
                 <div className="viva-quesBody-answer-step">
                   <img
                     src={
-                      scoredMarks[quesIndex][stepIndex] !== 0
-                        ? rightSelected
-                        : right
+                      updatedAnswers
+                        ? updatedAnswers[quesIndex][stepIndex]
+                          ? rightSelected
+                          : right
+                        : null
                     }
                     alt="right"
+                    onClick={() => {
+                      const emptyArray = [...updatedAnswers[quesIndex]];
+                      emptyArray[stepIndex] = !emptyArray[stepIndex];
+                      setUpdatedQues(quesIndex, emptyArray);
+                    }}
                   />
+                  <span className="viva-quesBody-answer-step--marks">
+                    {step.totalMarks}
+                  </span>
                 </div>
               </div>
             );
@@ -132,6 +230,9 @@ const AnsSheetQuesBody = ({ question, quesIndex, remarks, scoredMarks }) => {
           type="text"
           placeholder="Remarks"
           defaultValue={remarks[quesIndex]}
+          onBlur={(e) => {
+            getUpdatedRemarks(quesIndex, e.target.value);
+          }}
         />
       </div>
     </div>

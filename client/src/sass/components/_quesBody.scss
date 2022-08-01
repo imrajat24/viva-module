@@ -74,11 +74,12 @@
   &-answerss {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
     p {
       font-size: 1.4rem;
-      &:not(:last-child) {
-        margin-bottom: 2rem;
-      }
     }
   }
   &-btns {
@@ -105,4 +106,23 @@ input::-webkit-inner-spin-button {
   // /* Firefox */
 
   -moz-appearance: textfield;
+}
+
+// ! styles for the total marks of the steps, questions and the question paper
+.viva-quesBody-answer-step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 6rem;
+  &--marks {
+    font-size: 1.4rem;
+    // margin-left: 1rem;
+  }
+}
+
+.ques_body-ques {
+  span {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
 }

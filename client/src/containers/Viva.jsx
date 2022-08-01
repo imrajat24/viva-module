@@ -55,7 +55,7 @@ const Viva = ({
     setRemarks(newRemarks);
   };
 
-  // //* function to generate the answer sheet of the seleceted user when the continue button is pressed...
+  // //* function to generate the answer sheet of the selected user when the continue button is pressed...
   const generateAnswersheet = () => {
     axios
       .post("https://viva-module.herokuapp.com/answersheet", {

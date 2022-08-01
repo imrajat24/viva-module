@@ -1,6 +1,8 @@
 import right from "../images/right.png";
 import rightSelected from "../images/right-selected.png";
 import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const VivaQuesBody = ({
   question,
@@ -11,11 +13,25 @@ const VivaQuesBody = ({
   temp1,
   getRemarks,
 }) => {
+  const [quesTotal, setQuesTotal] = useState();
+  //! function to add the marks of each step
+  useEffect(() => {
+    const addMarks = () => {
+      let temp = 0;
+      steps?.map((step) => {
+        temp += step.totalMarks;
+      });
+      setQuesTotal(temp);
+    };
+    addMarks();
+  }, [steps]);
+
   return marks ? (
     <div className="viva_ques">
       <div className="ques_body viva-quesBody">
         <div className="ques_body-ques">
           <p className="ques">{question}</p>
+          <span>{quesTotal}</span>
         </div>
 
         <div className="ques_body-answers">
@@ -39,6 +55,9 @@ const VivaQuesBody = ({
                       setQues(index, emptyArray);
                     }}
                   />
+                  <span className="viva-quesBody-answer-step--marks">
+                    {step.totalMarks}
+                  </span>
                 </div>
               </div>
             );
