@@ -131,7 +131,7 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
                   className="btn btn-secondary"
                   onClick={() => setShowanswersheet(!showAnswersheet)}
                 >
-                  Download
+                  View Answersheet
                 </button>
               </Link>
             </div>
