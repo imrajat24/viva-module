@@ -9,6 +9,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import { scormLogic } from "./Methods/scromLogic";
 import axios from "axios";
+import DgcaAns from "./containers/DgcaAns";
 function App() {
   //! getting the admin token for API access
   const token = process.env.REACT_APP_ADMIN_TOKEN;
@@ -22,7 +23,7 @@ function App() {
   const [courseId, setCourseId] = useState(546);
   const [traineeId, settraineeId] = useState("bhavya");
   const [trainerId, settrainerId] = useState("deptadmin_inf");
-  console.log(courseId, userId);
+  // console.log(courseId, userId);
   useEffect(() => {
     axios
       .get(
@@ -67,7 +68,7 @@ function App() {
     tryFunc2();
   }, [role]);
   const tryFunc2 = () => {
-    console.log(role, traineeId, trainerId);
+    // console.log(role, traineeId, trainerId);
     getUsers();
     //* get the number of question papers in a course id (if exists)
     getQuestionPaper();
@@ -298,11 +299,12 @@ function App() {
           path="/answerSheet"
           exact
           element={
-            <AnswerSheet
-              getUserAnswer={getUserAnswer}
-              trainerId={trainerId}
-              courseId={courseId}
-            />
+            // <AnswerSheet
+            //   getUserAnswer={getUserAnswer}
+            //   trainerId={trainerId}
+            //   courseId={courseId}
+            // />
+            <DgcaAns getUserAnswer={getUserAnswer} courseId={courseId} />
           }
         />
       </Routes>

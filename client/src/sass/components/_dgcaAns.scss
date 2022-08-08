@@ -1,0 +1,65 @@
+.ansHeader {
+  display: flex;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &-logo {
+    width: 15%;
+    border: 1px solid black;
+    img {
+      width: 100%;
+    }
+    border-right: 0;
+  }
+  &-2 {
+    width: 70%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #d9d9d9;
+
+    &--heading,
+    &--trainingType {
+      border: 1px solid black;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    &--heading {
+      border-bottom: 0;
+    }
+  }
+  &-set {
+    width: 15%;
+    border: 1px solid black;
+    display: grid;
+    place-items: center;
+    border-left: 0;
+    background-color: #d9d9d9;
+  }
+}
+
+.ansBody {
+  width: 100%;
+  text-align: left;
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  border: 1px solid black;
+  border-collapse: collapse;
+  th,
+  td {
+    border: 1px solid black;
+    padding: 0.2rem 0.4rem;
+  }
+  th {
+    background-color: #eeece1;
+  }
+  .heading-1 {
+  }
+  .questions {
+    background-color: #fbd4b4;
+  }
+}

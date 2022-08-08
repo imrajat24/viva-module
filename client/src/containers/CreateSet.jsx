@@ -74,7 +74,7 @@ const CreateSet = ({ questionPaper, setquestionPaper, courseId, token }) => {
         // console.log(res.data.courseids);
         setCopycourseids(res.data.courseids);
       });
-  }, []);
+  }, [courseId]);
 
   // *function to add questions of the copy question papers into the main question state
   useEffect(() => {
