@@ -299,11 +299,17 @@ function App() {
           path="/answerSheet"
           exact
           element={
-            // <AnswerSheet
-            //   getUserAnswer={getUserAnswer}
-            //   trainerId={trainerId}
-            //   courseId={courseId}
-            // />
+            <AnswerSheet
+              getUserAnswer={getUserAnswer}
+              trainerId={trainerId}
+              courseId={courseId}
+            />
+          }
+        />
+        <Route
+          path="/downloadAns"
+          exact
+          element={
             <DgcaAns getUserAnswer={getUserAnswer} courseId={courseId} />
           }
         />

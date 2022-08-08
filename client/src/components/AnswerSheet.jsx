@@ -3,15 +3,14 @@ import { useState, useEffect } from "react";
 import Header from "../containers/Header";
 import right from "../images/right.png";
 import rightSelected from "../images/right-selected.png";
-import html2canvas from "html2canvas";
-import jsPdf from "jspdf";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
   const [userAnswer, setUseranswer] = useState();
   const [remarks, setRemarks] = useState();
   const [scoredMarks, setScoredMarks] = useState();
   const [updatedAnswers, setupdatedAnswers] = useState();
   const [updatedRemarks, setupdatedRemarks] = useState([]);
+  const [showAnswersheet, setShowanswersheet] = useState(false);
   const navigate = useNavigate();
   // * variables to store the updted answer object so that it can be passed in the DB through API
   const updatedAnswerObject = [];
@@ -71,21 +70,6 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
     }
   }, [userAnswer]);
 
-  // ! take screenshot anf convert it to pdf
-  const generateAnswersheet = () => {
-    let id = document.getElementById("answer-sheet");
-    html2canvas(id)
-      .then((canvas) => {
-        const imgWidth = 208;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        const imgData = canvas.toDataURL("img/png", "1.0");
-        const pdf = new jsPdf();
-        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        pdf.save("test.pdf");
-      })
-      .catch((err) => console.log(err));
-  };
-
   // ! function to update the answersheet in the db
   // //* function to generate the answer sheet of the selected user when the continue button is pressed...
   const updateAnswersheet = () => {
@@ -142,12 +126,14 @@ const AnswerSheet = ({ getUserAnswer, trainerId, courseId }) => {
               <button className="btn btn-primary" onClick={updateAnswersheet}>
                 Update Answersheet
               </button>
-              <button
-                className="btn btn-secondary"
-                onClick={generateAnswersheet}
-              >
-                Download
-              </button>
+              <Link to="/downloadAns">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowanswersheet(!showAnswersheet)}
+                >
+                  Download
+                </button>
+              </Link>
             </div>
           </div>
         </div>

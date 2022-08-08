@@ -57,9 +57,46 @@
   th {
     background-color: #eeece1;
   }
-  .heading-1 {
-  }
+
   .questions {
     background-color: #fbd4b4;
   }
+}
+
+.traineeAcknowledge {
+  font-weight: 600;
+  td {
+    img {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.trainerAcknowledge {
+  font-weight: 600;
+  .images {
+    display: flex;
+    justify-content: left;
+    margin-top: 1rem;
+    align-items: center;
+    img {
+      margin-right: 0.5rem;
+      &:last-of-type {
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+.trainerAcknowledge,
+.traineeAcknowledge {
+  td {
+    padding: 1rem;
+  }
+}
+
+.downloadAns {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
 }

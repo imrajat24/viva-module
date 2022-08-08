@@ -1,13 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import rightSelected from "../images/tick.png";
+import right from "../images/tick-select.png";
 import getDate from "../Methods/getDate";
-
+import html2canvas from "html2canvas";
+import jsPdf from "jspdf";
 const DgcaAns = ({ getUserAnswer, courseId }) => {
   const [userAnswer, setUseranswer] = useState();
   const [remarks, setRemarks] = useState();
   const [scoredMarks, setScoredMarks] = useState();
-  const navigate = useNavigate();
+  // * state to store the total marks of the selected question paper
+  const [totalScore, setTotalScore] = useState(0);
+  const [score, setScore] = useState(0);
 
   // * function to get the status of the current user
   useEffect(() => {
@@ -47,11 +51,49 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
     }
   }, [userAnswer]);
 
-  console.log(userAnswer);
-  console.log(remarks);
-  console.log(scoredMarks);
+  // ! function to store the total score of the given answersheet
+  useEffect(() => {
+    let temp = 0;
+    userAnswer?.questionPaper.questions.map((question) => {
+      question.steps.map((step) => {
+        // setTotalScore((prev) => prev + step.totalMarks);
+        temp += step.totalMarks;
+      });
+    });
+    setTotalScore(temp);
+  }, [userAnswer]);
+
+  // ! function to get the scored marks of the given answersheet
+  useEffect(() => {
+    let temp = 0;
+    scoredMarks?.map((marks) => {
+      console.log(marks);
+      marks.map((score) => {
+        console.log(score);
+        // setScore((prev) => prev + score);
+        temp += score;
+      });
+    });
+    setScore(temp);
+  }, [scoredMarks]);
+
+  // ! take screenshot anf convert it to pdf
+  const generateAnswersheet = () => {
+    let id = document.getElementById("dgcaAnswer");
+    html2canvas(id)
+      .then((canvas) => {
+        const imgWidth = 208;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        const imgData = canvas.toDataURL("img/png", "1.0");
+        const pdf = new jsPdf();
+        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+        pdf.save("test.pdf");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return userAnswer ? (
-    <div className="row">
+    <div className="row" id="dgcaAnswer">
       <div className="ansHeader">
         <div className="ansHeader-logo">
           <img
@@ -62,10 +104,12 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
         <div className="ansHeader-2">
           <div className="ansHeader-2--heading">Viva Voice Assessment</div>
           <div className="ansHeader-2--trainingType">
-            Type of Training: Recurrent
+            Type of Training: {userAnswer.questionPaper.trainingType}
           </div>
         </div>
-        <div className="ansHeader-set">Set Number: A</div>
+        <div className="ansHeader-set">
+          Set Number: {userAnswer.questionPaper.set}
+        </div>
       </div>
       <table className="ansBody">
         <thead>
@@ -73,7 +117,7 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
             <th width="70%" colSpan={2}>
               E.Code: {userAnswer.traineeId}
             </th>
-            <th colSpan={2} style={{ textAlign: "left" }}>
+            <th colSpan={2} style={{ textAlign: "center" }}>
               Date: {date}
             </th>
           </tr>
@@ -87,21 +131,20 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
           </tr>
         </thead>
         <tbody>
-          {userAnswer.questionPaper.questions.map((question) => {
+          {userAnswer.questionPaper.questions.map((question, qindex) => {
             return (
               <>
                 <tr className="questions">
-                  <td style={{ textAlign: "left" }}>
+                  <td colSpan={2} style={{ textAlign: "left" }}>
                     {question.questionStatement}
                   </td>
-                  <td colSpan={3} style={{ textAlign: "center" }}>
-                    Total Marks
-                  </td>
+                  <td style={{ textAlign: "center" }}>Marks Scored</td>
+                  <td style={{ textAlign: "center" }}>Total Marks</td>
                 </tr>
-                {userAnswer.answerSheet.answers.map((answer) => {
-                  return (
+                {userAnswer.answerSheet.answers.map((answer, aindex) => {
+                  return qindex === aindex ? (
                     <>
-                      {answer.steps.map((step) => {
+                      {answer.steps.map((step, astepindex) => {
                         console.log(step);
                         return (
                           <tr className="answers">
@@ -109,7 +152,15 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
                             <td colSpan={2} style={{ textAlign: "center" }}>
                               {step.givenMarks}
                             </td>
-                            <td style={{ textAlign: "center" }}>Total Marks</td>
+                            {question.steps.map((qstep, qstepindex) => {
+                              console.log(qstep);
+                              console.log(qstepindex);
+                              return astepindex === qstepindex ? (
+                                <td style={{ textAlign: "center" }}>
+                                  {qstep.totalMarks}
+                                </td>
+                              ) : null;
+                            })}
                           </tr>
                         );
                       })}
@@ -125,7 +176,7 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
                         <td colSpan={4} height="20"></td>
                       </tr>
                     </>
-                  );
+                  ) : null;
                 })}
               </>
             );
@@ -133,11 +184,36 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
         </tbody>
         <tfoot>
           <tr className="traineeAcknowledge">
-            <td></td>
+            <td colSpan={4}>
+              I acknowledge that i have understood the assesment conducted and
+              accept the same on date <br />
+              <img src={userAnswer.status ? right : rightSelected} alt="" />
+            </td>
           </tr>
-          <tr className="traineeAcknowledge"></tr>
+          <tr className="trainerAcknowledge">
+            <td>
+              <p>
+                I Trainer Name accept that I have evaluated the same on date.
+              </p>
+              <div className="images">
+                <img src={rightSelected} alt="" /> Pass
+                <img src={rightSelected} alt="" /> Fail
+              </div>
+            </td>
+            <td colSpan={3}>
+              Marks Obtained: {score}/{totalScore}
+            </td>
+          </tr>
         </tfoot>
       </table>
+      <div className="downloadAns">
+        <button
+          className="btn btn-primary"
+          onClick={() => generateAnswersheet()}
+        >
+          Download
+        </button>
+      </div>
     </div>
   ) : null;
 };
