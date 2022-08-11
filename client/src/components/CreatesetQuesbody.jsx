@@ -102,6 +102,7 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
             />
             <input
               type="number"
+              step="0.1"
               placeholder={
                 step.totalMarks === 0 ? "Enter Marks" : step.totalMarks
               }
@@ -111,7 +112,7 @@ const CreatesetQuesbody = ({ quesNum, quesPaper, setQuesPaper, x }) => {
                 updateStep(
                   index,
                   quesPaper.questions[quesNum - 1].steps[index].description,
-                  parseInt(e.target.value)
+                  parseFloat(e.target.value)
                 );
               }}
             />

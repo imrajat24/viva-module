@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 
 const CopySetScroll = ({ questionPaper, getSet, courseId }) => {
-  // const [sets, setSets] = useState();
-  // useEffect(() => {
-  //   let temp = [];
-  //   questionPaper.map((paper) => {
-  //     temp.push(paper.set);
-  //   });
-  //   setSets(temp);
-  // }, [questionPaper]);
   return questionPaper.length ? (
     <>
       {questionPaper?.map((paper, index) => {

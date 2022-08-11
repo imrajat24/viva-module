@@ -84,8 +84,19 @@ const CreateSet = ({ questionPaper, setquestionPaper, courseId, token }) => {
         .then((res) => {
           console.log(res.data);
           const temp3 = [...questionPaper];
-          temp3.push(...res.data);
+          // temp3.push(...res.data);
+          res.data.map((quesPaper) => {
+            const hasQp = temp3.find((qPaper) => {
+              if (
+                quesPaper.courseId == qPaper.courseId &&
+                quesPaper.set == qPaper.set
+              )
+                return true;
+            });
+            if (hasQp == undefined) temp3.push(quesPaper);
+          });
           setquestionPaper(temp3);
+          console.log(questionPaper);
         })
         .catch((err) => {
           console.log(err);
@@ -180,6 +191,7 @@ const CreateSet = ({ questionPaper, setquestionPaper, courseId, token }) => {
             className="btn btn-primary"
             onClick={() => {
               navigate("/");
+              window.location.reload();
             }}
           >
             Continue
