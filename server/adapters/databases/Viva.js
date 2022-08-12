@@ -8,6 +8,8 @@ const vivaSchema = new mongoose.Schema({
   trainerId: String,
   traineeId: String,
   status: { type: Number, min: 0, max: 3 },
+  trainerDate: { type: Number },
+  traineeDate: { type: Number },
   questionPaper: { type: mongoose.Types.ObjectId, ref: "questionpaper" },
   answerSheet: { type: mongoose.Types.ObjectId, ref: "answersheet" },
 });

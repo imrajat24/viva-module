@@ -71,10 +71,12 @@ const write = async (answerSheet) => {
     await newAnswerSheet.save();
     const { value: qpid } = await questionPaperDB._id(courseId, set);
     const asid = newAnswerSheet._id;
+
     const vivaUpdate = {
       courseId,
       traineeId,
       status: 2,
+      trainerDate: Date.now(),
       questionPaper: qpid,
       answerSheet: asid,
     };

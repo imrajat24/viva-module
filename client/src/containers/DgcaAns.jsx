@@ -186,7 +186,7 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
           <tr className="traineeAcknowledge">
             <td colSpan={4}>
               I acknowledge that i have understood the assesment conducted and
-              accept the same on date <br />
+              accept the same on {userAnswer.traineeDate} <br />
               <img src={userAnswer.status ? right : rightSelected} alt="" />
             </td>
           </tr>

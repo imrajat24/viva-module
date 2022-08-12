@@ -68,6 +68,7 @@ const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
           courseId: courseId.toString(),
           traineeId: traineeId.toString(),
           status: 3,
+          traineeDate: Date.now(),
         })
         .catch((err) => {
           console.log(err);

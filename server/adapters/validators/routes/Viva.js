@@ -5,6 +5,8 @@ const viva = Joi.object({
   // trainerId: Joi.string().required(),
   traineeId: Joi.string().required(),
   status: Joi.number().required().min(0).max(3),
+  trainerDate: Joi.number(),
+  traineeDate: Joi.number(),
 });
 
 const validate = (object) => {
