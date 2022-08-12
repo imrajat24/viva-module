@@ -5,6 +5,7 @@ import right from "../images/tick-select.png";
 import getDate from "../Methods/getDate";
 import html2canvas from "html2canvas";
 import jsPdf from "jspdf";
+import getSignDate from "../Methods/getSignDate";
 const DgcaAns = ({ getUserAnswer, courseId }) => {
   const [userAnswer, setUseranswer] = useState();
   const [remarks, setRemarks] = useState();
@@ -90,6 +91,13 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
         pdf.save("test.pdf");
       })
       .catch((err) => console.log(err));
+  };
+
+  // !function to check if the user has passed or not
+
+  const isPass = (scoredMarks, totalMarks, percentage) => {
+    let passingMarks = (totalMarks * percentage) / 100;
+    return scoredMarks >= passingMarks ? true : false;
   };
 
   return userAnswer ? (
@@ -186,18 +194,43 @@ const DgcaAns = ({ getUserAnswer, courseId }) => {
           <tr className="traineeAcknowledge">
             <td colSpan={4}>
               I acknowledge that i have understood the assesment conducted and
-              accept the same on {userAnswer.traineeDate} <br />
+              accept the same on {getSignDate(userAnswer.traineeDate)} <br />
               <img src={userAnswer.status ? right : rightSelected} alt="" />
             </td>
           </tr>
           <tr className="trainerAcknowledge">
             <td>
               <p>
-                I Trainer Name accept that I have evaluated the same on date.
+                I Trainer Name accept that I have evaluated the same on{" "}
+                {getSignDate(userAnswer.trainerDate)}.
               </p>
               <div className="images">
-                <img src={rightSelected} alt="" /> Pass
-                <img src={rightSelected} alt="" /> Fail
+                <img
+                  src={
+                    isPass(
+                      score,
+                      totalScore,
+                      userAnswer.questionPaper.passingPercent
+                    )
+                      ? right
+                      : rightSelected
+                  }
+                  alt=""
+                />{" "}
+                Pass
+                <img
+                  src={
+                    !isPass(
+                      score,
+                      totalScore,
+                      userAnswer.questionPaper.passingPercent
+                    )
+                      ? right
+                      : rightSelected
+                  }
+                  alt=""
+                />{" "}
+                Fail
               </div>
             </td>
             <td colSpan={3}>

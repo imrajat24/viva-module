@@ -4,6 +4,7 @@ import rightSelected from "../images/tick.png";
 import right from "../images/tick-select.png";
 import { useEffect } from "react";
 import axios from "axios";
+import getSignDate from "../Methods/getSignDate";
 const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
   // !-------------------------------------------------------------------------------------------------------------------------------
   // ? Functions and methods required for the LMS
@@ -70,18 +71,16 @@ const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
           status: 3,
           traineeDate: Date.now(),
         })
+        .then(() => {
+          window.location.reload();
+        })
         .catch((err) => {
           console.log(err);
         });
     }
-
-    // * function to get the current date and time
-    const getCurrentTime = () => {};
   };
 
-  // * method to get the currrent date
   const date = getDate();
-
   return (
     <div className="trainer1 trainee1">
       <div className="trainer1_header trainee1_header--1">
@@ -127,7 +126,8 @@ const Trainee1 = ({ status, setStatus, traineeId, courseId }) => {
               Thanks for the acknowledgement. You can now exit the activity.
             </p>
             <p className="status_para">
-              Date and Time of Acknowledgement: <b>{currentTime} </b>
+              Date and Time of Acknowledgement:{" "}
+              <b>{getSignDate(viva.traineeDate)} </b>
             </p>
           </div>
         )}

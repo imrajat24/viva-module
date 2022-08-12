@@ -40,10 +40,11 @@ const CreateSet = ({ questionPaper, setquestionPaper, courseId, token }) => {
   };
 
   // * function to update the data in the question state
-  const updateData = (data1, data2) => {
+  const updateData = (data1, data2, data3) => {
     const temp = { ...quesPaper };
     temp.set = data1;
     temp.trainingType = data2;
+    temp.passingPercent = data3;
     setQuesPaper(temp);
   };
 
@@ -144,7 +145,31 @@ const CreateSet = ({ questionPaper, setquestionPaper, courseId, token }) => {
                     : quesPaper.set
                 }
                 onChange={(e) =>
-                  updateData(e.target.value, quesPaper.trainingType)
+                  updateData(
+                    e.target.value,
+                    quesPaper.trainingType,
+                    quesPaper.passingPercent
+                  )
+                }
+              />
+              <input
+                type="number"
+                placeholder={
+                  quesPaper.questions[0].questionStatement === ""
+                    ? "Set Passing Percentage"
+                    : quesPaper.passingPercent
+                }
+                value={
+                  quesPaper.questions[0].questionStatement === ""
+                    ? undefined
+                    : quesPaper.passingPercent
+                }
+                onChange={(e) =>
+                  updateData(
+                    quesPaper.set,
+                    quesPaper.passingPercent,
+                    e.target.value
+                  )
                 }
               />
               <input
@@ -159,7 +184,13 @@ const CreateSet = ({ questionPaper, setquestionPaper, courseId, token }) => {
                     ? undefined
                     : quesPaper.trainingType
                 }
-                onChange={(e) => updateData(quesPaper.set, e.target.value)}
+                onChange={(e) =>
+                  updateData(
+                    quesPaper.set,
+                    e.target.value,
+                    quesPaper.passingPercent
+                  )
+                }
               />
             </div>
             {quesPaper.questions.map((x, i) => (
