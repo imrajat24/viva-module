@@ -21,6 +21,7 @@ const questionPaperSchema = new mongoose.Schema(
   {
     courseId: String,
     set: String,
+    passingPercent: Number,
     trainingType: String,
     questions: [question],
     deleted: { type: Boolean, default: false },

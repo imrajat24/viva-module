@@ -11,6 +11,7 @@ const question = Joi.object({
 const questionPaper = Joi.object({
   courseId: Joi.string().required(),
   set: Joi.string().required(),
+  passingPercent: Joi.number().required(),
   trainingType: Joi.string().required(),
   questions: Joi.array().items(question).required(),
 });
